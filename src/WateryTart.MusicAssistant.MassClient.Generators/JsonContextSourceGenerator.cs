@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using WateryTart.MusicAssistant.Generators;
 
 namespace WateryTart.Service.MassClient.Generators;
 
@@ -42,7 +43,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
                 .ToList();
 
             // Find the MassClientJsonContext class and extract JsonContextInclude attributes
-            var contextClass = allTypes.FirstOrDefault(t => t.Name == "MassClientJsonContext" && 
+            var contextClass = allTypes.FirstOrDefault(t => t.Name == "MediaAssistantJsonContext" && 
                 t.ContainingNamespace.ToDisplayString().Contains("Messages"));
 
             var includedTypes = new List<string>();
@@ -70,7 +71,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
                 return;
 
             var source = GenerateAttributeSource(matchingTypes, includedTypes);
-            context.AddSource("MassClientJsonContext.g.cs", SourceText.From(source, Encoding.UTF8));
+            context.AddSource("MediaAssistantJsonContext.g.cs", SourceText.From(source, Encoding.UTF8));
         }
         catch (Exception ex)
         {
@@ -109,7 +110,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
         return false;
     }
 
-    private static string GenerateAttributeSource(List<INamedTypeSymbol> types, List<string> includedTypes, string targetNamespace = "WateryTart.Service.MassClient")
+    private static string GenerateAttributeSource(List<INamedTypeSymbol> types, List<string> includedTypes, string targetNamespace = "WateryTart.MusicAssistant")
     {
         var sb = new StringBuilder();
 
@@ -117,7 +118,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
         sb.AppendLine("#nullable enable");
         sb.AppendLine();
         sb.AppendLine("using System.Text.Json.Serialization;");
-        sb.AppendLine("using WateryTart.Service.MassClient.Responses;");
+        sb.AppendLine("using WateryTart.MusicAssistant.Responses;");
         sb.AppendLine();
         sb.AppendLine($"namespace {targetNamespace};");
         sb.AppendLine();
@@ -166,7 +167,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
             sb.AppendLine($"[JsonSerializable(typeof({responseType}))]");
         }
 
-        sb.AppendLine("public partial class MassClientJsonContext : JsonSerializerContext { }");
+        sb.AppendLine("public partial class MediaAssistantJsonContext : JsonSerializerContext { }");
 
         return sb.ToString();
     }

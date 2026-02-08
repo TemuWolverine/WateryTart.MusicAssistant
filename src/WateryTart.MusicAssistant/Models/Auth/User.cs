@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WateryTart.Service.MassClient.Models.Auth
+namespace WateryTart.MusicAssistant.Models.Auth
 {
     public class User
     {

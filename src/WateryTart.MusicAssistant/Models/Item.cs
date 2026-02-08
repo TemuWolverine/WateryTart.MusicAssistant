@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WateryTart.Service.MassClient.Models;
+namespace WateryTart.MusicAssistant.Models;
 
 public class Item : MediaItemBase
 {

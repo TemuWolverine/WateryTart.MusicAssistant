@@ -3,9 +3,9 @@ using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WebSocketExtensions;
 
-public static partial class MassClientExtensions
+public static partial class WebsocketClientExtensions
 {
-    extension(IMassWsClient c)
+    extension(IWsClient c)
     {
         public async Task<ArtistResponse> ArtistGetAsync(string artistid, string provider_instance_id_or_domain)
         {

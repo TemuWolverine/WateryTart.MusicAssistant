@@ -4,9 +4,9 @@ using WateryTart.MusicAssistant.Messages;
 
 namespace WateryTart.MusicAssistant.WebSocketExtensions;
 
-public static partial class MassClientExtensions
+public static partial class WebsocketClientExtensions
 {
-    internal static Task<T> SendAsync<T>(IMassWsClient client, MessageBase message)
+    internal static Task<T> SendAsync<T>(IWsClient client, MessageBase message)
     {
         var tcs = new TaskCompletionSource<T>();
         try
@@ -15,7 +15,7 @@ public static partial class MassClientExtensions
             {
                 try
                 {
-                    var typeInfo = Service.MassClient.MassClientJsonContext.Default.GetTypeInfo(typeof(T)) as JsonTypeInfo<T>;
+                    var typeInfo = MediaAssistantJsonContext.Default.GetTypeInfo(typeof(T)) as JsonTypeInfo<T>;
                     if (typeInfo == null) 
                         return;
 
@@ -37,12 +37,12 @@ public static partial class MassClientExtensions
         return tcs.Task;
     }
 
-    private static MessageBase JustCommand(string command)
+    public static MessageBase JustCommand(string command)
     {
         return new Message(command);
     }
 
-    private static MessageBase JustId(string command, string id, string idLabel = "item_id")
+    public static MessageBase JustId(string command, string id, string idLabel = "item_id")
     {
         var m = new Message(command)
         {
@@ -55,7 +55,7 @@ public static partial class MassClientExtensions
         return m;
     }
 
-    private static MessageBase IdAndProvider(string command, string id, string provider)
+    public static MessageBase IdAndProvider(string command, string id, string provider)
     {
         var m = new Message(command)
         {
@@ -73,7 +73,7 @@ public static partial class MassClientExtensions
     {
         Action<string> d = (r) =>
         {
-            var y = JsonSerializer.Deserialize<T>(r, MassWsClient.SerializerOptions);
+            var y = JsonSerializer.Deserialize<T>(r, WsClient.SerializerOptions);
             if (y != null)
                 responseHandler(y);
         };

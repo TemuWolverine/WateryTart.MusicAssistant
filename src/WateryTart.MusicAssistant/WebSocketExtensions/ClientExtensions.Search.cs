@@ -3,9 +3,9 @@ using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WebSocketExtensions
 {
-    public static partial class MassClientExtensions
+    public static partial class WebsocketClientExtensions
     {
-        public static async Task<SearchResponse> SearchAsync(this IMassWsClient c, string query, int? limit = null, bool library_only = true)
+        public static async Task<SearchResponse> SearchAsync(this IWsClient c, string query, int? limit = null, bool library_only = true)
         {
             var args = new Dictionary<string, object>()
             {

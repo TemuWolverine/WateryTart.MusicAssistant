@@ -1,20 +1,24 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using System.Reactive.Subjects;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Logging;
 using WateryTart.MusicAssistant.Events;
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models.Auth;
 using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
+using WateryTart.MusicAssistant.WebSocketExtensions;
+using Websocket.Client;
 
 namespace WateryTart.MusicAssistant
 {
-    public class MassWsClient : IMassWsClient
+    public class WsClient : IWsClient
     {
         internal WebsocketClient? _client;
         internal ConcurrentDictionary<string, Action<string>> _routing = new();
-        private IMassCredentials? creds;
+        private IMusicAssistantCredentials? creds;
 
         private CancellationTokenSource _connectionCts = new CancellationTokenSource();
         private readonly Subject<BaseEventResponse?> subject = new Subject<BaseEventResponse?>();
@@ -35,7 +39,7 @@ namespace WateryTart.MusicAssistant
         /// </summary>
         internal static readonly JsonSerializerOptions SerializerOptions = new()
         {
-            TypeInfoResolver = Service.MassClient.MassClientJsonContext.Default,
+            TypeInfoResolver = MediaAssistantJsonContext.Default,
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
             PropertyNameCaseInsensitive = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -43,7 +47,7 @@ namespace WateryTart.MusicAssistant
 
         };
 
-        public MassWsClient()
+        public WsClient()
         {
             using ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddConsole());
             logger = factory.CreateLogger("MassWsClient");
@@ -51,7 +55,7 @@ namespace WateryTart.MusicAssistant
 
         public async Task<LoginResults> Login(string username, string password, string baseurl)
         {
-            MassCredentials mc = new MassCredentials();
+            MusicAssistantCredentials mc = new MusicAssistantCredentials();
 
             var factory = new Func<ClientWebSocket>(() => new ClientWebSocket
             {
@@ -90,7 +94,7 @@ namespace WateryTart.MusicAssistant
                     }
                     var success = new LoginResults
                     {
-                        Credentials = new MassCredentials
+                        Credentials = new MusicAssistantCredentials
                         {
                             Token = response.Result.AccessToken,
                             BaseUrl = baseurl
@@ -113,9 +117,9 @@ namespace WateryTart.MusicAssistant
             }
         }
 
-        public async Task<bool> Connect(IMassCredentials credentials)
+        public async Task<bool> Connect(IMusicAssistantCredentials credentials)
         {
-            var x = new MassClientJsonContext();
+            var x = new MediaAssistantJsonContext();
             logger.LogInformation("WS Connecting");
 
             lock (_connectLock)
@@ -197,7 +201,7 @@ namespace WateryTart.MusicAssistant
             return $"ws://{baseUrl}/ws";
         }
 
-        private void SendLogin(IMassCredentials credentials)
+        private void SendLogin(IMusicAssistantCredentials credentials)
         {
             logger.LogInformation("Sending authentication...");
             var argsx = new Dictionary<string, object>() { { "token", credentials.Token } };
@@ -228,7 +232,7 @@ namespace WateryTart.MusicAssistant
             });
 
             // Use JsonSerializer.Serialize with JsonTypeInfo to avoid RequiresUnreferencedCode warning
-            var json = JsonSerializer.Serialize(auth, Service.MassClient.MassClientJsonContext.Default.Auth);
+            var json = JsonSerializer.Serialize(auth, MediaAssistantJsonContext.Default.Auth);
             logger.LogInformation("Sending auth: {Json}", json);
             _client?.Send(json);
         }
@@ -280,7 +284,7 @@ namespace WateryTart.MusicAssistant
             }
 
             // Use JsonSerializer.Deserialize with JsonTypeInfo to avoid RequiresUnreferencedCode warning
-            TempResponse? y = JsonSerializer.Deserialize(response.Text, Service.MassClient.MassClientJsonContext.Default.TempResponse);
+            TempResponse? y = JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.TempResponse);
 
             // Use TryRemove instead of ContainsKey + indexer
             if (y?.message_id != null && _routing.TryRemove(y.message_id, out var handler))
@@ -298,7 +302,7 @@ namespace WateryTart.MusicAssistant
                 switch (e.EventName)
                 {
                     case EventType.MediaItemPlayed:
-                        subject.OnNext(JsonSerializer.Deserialize(response.Text, Service.MassClient.MassClientJsonContext.Default.MediaItemEventResponse));
+                        subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
                         break;
                     case EventType.PlayerAdded:
                     case EventType.PlayerUpdated:
@@ -306,7 +310,7 @@ namespace WateryTart.MusicAssistant
                     case EventType.PlayerConfigUpdated:
                         try
                         {
-                            var x = JsonSerializer.Deserialize(response.Text, Service.MassClient.MassClientJsonContext.Default.PlayerEventResponse);
+                            var x = JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerEventResponse);
                             subject.OnNext(x);
                         }
                         catch (Exception ex)
@@ -318,12 +322,12 @@ namespace WateryTart.MusicAssistant
 
                     case EventType.QueueAdded:
                     case EventType.QueueUpdated:
-                        subject.OnNext(JsonSerializer.Deserialize(response.Text, Service.MassClient.MassClientJsonContext.Default.PlayerQueueEventResponse));
+                        subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueEventResponse));
                         break;
                     case EventType.QueueItemsUpdated:
                         break;
                     case EventType.QueueTimeUpdated:
-                        subject.OnNext(JsonSerializer.Deserialize(response.Text, Service.MassClient.MassClientJsonContext.Default.PlayerQueueTimeUpdatedEventResponse));
+                        subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueTimeUpdatedEventResponse));
                         break;
 
                     default:

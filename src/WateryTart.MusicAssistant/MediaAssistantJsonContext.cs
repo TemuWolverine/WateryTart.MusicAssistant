@@ -50,9 +50,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(PlayerQueueEventResponse))]
 [JsonSerializable(typeof(PlayerQueueTimeUpdatedEventResponse))]
 [JsonSerializable(typeof(Auth))]
-//[JsonSerializable(typeof(WateryTart.Service.MassClient.Messages.Commands))]
 [JsonSerializable(typeof(Message))]
-//[JsonSerializable(typeof(WateryTart.Service.MassClient.Messages.MessageJsonContext))]
 [JsonSerializable(typeof(Album))]
 [JsonSerializable(typeof(Artist))]
 [JsonSerializable(typeof(AudioFormat))]
@@ -77,7 +75,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(Streamdetails))]
 [JsonSerializable(typeof(AuthUser))]
 [JsonSerializable(typeof(LoginResults))]
-[JsonSerializable(typeof(MassCredentials))]
+[JsonSerializable(typeof(MusicAssistantCredentials))]
 [JsonSerializable(typeof(User))]
 [JsonSerializable(typeof(EventType))]
 [JsonSerializable(typeof(ImageType))]
@@ -116,7 +114,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<PlayerQueue>))]
 [JsonSerializable(typeof(ResponseBase<Playlist>))]
 [JsonSerializable(typeof(ResponseBase<Search>))]
-public partial class MassClientJsonContext : JsonSerializerContext
+public partial class MediaAssistantJsonContext : JsonSerializerContext
 {
 }
 

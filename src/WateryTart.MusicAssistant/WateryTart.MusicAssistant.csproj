@@ -15,7 +15,7 @@
 		<Version>0.1.1</Version>
 		<Company>WateryTart</Company>
 		<Authors>WateryTart Contributors</Authors>
-		<Description>Music Assistant Client Library, providing both a websock and RPC interface</Description>
+		<Description>Music Assistant Client Library, providing both a websocket and RPC interface</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

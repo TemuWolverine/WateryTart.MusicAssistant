@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
-namespace WateryTart.Service.MassClient.Generators;
+namespace WateryTart.MusicAssistant.Generators;
 
 internal static class SymbolExtensions
 {

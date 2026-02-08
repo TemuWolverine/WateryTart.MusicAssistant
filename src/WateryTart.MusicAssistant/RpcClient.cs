@@ -5,12 +5,12 @@ using WateryTart.MusicAssistant.Models.Auth;
 
 namespace WateryTart.MusicAssistant
 {
-    public class MassRpcClient
+    public class RpcClient
     {
-        private readonly IMassCredentials _credentials;
+        private readonly IMusicAssistantCredentials _credentials;
         private readonly string _baseUrl;
         private HttpClient client;
-        public MassRpcClient(IMassCredentials credentials, string baseUrl = "http://10.0.1.20:8095/api")
+        public RpcClient(IMusicAssistantCredentials credentials, string baseUrl = "http://10.0.1.20:8095/api")
         {
             _credentials = credentials;
             _baseUrl = baseUrl;

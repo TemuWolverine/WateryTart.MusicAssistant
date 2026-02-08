@@ -3,15 +3,15 @@ using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WebSocketExtensions;
 
-public static partial class MassClientExtensions
+public static partial class WebsocketClientExtensions
 {
     // ✅ FIXED: Proper extension method syntax
-    public static async Task<RecommendationResponse> MusicRecommendationsAsync(this IMassWsClient c)
+    public static async Task<RecommendationResponse> MusicRecommendationsAsync(this IWsClient c)
     {
         return await SendAsync<RecommendationResponse>(c, JustCommand(Commands.MusicRecommendations));
     }
 
-    extension(IMassWsClient c)
+    extension(IWsClient c)
     {
         public async Task<CountResponse> AlbumsCountAsync()
         {

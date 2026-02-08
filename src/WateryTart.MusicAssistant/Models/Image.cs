@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using WateryTart.Service.MassClient.Models.Enums;
+using WateryTart.MusicAssistant.Models.Enums;
 
-namespace WateryTart.Service.MassClient.Models;
+namespace WateryTart.MusicAssistant.Models;
 
 public class Image
 {

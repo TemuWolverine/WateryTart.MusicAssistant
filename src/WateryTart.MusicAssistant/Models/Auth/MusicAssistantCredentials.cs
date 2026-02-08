@@ -2,7 +2,7 @@
 
 namespace WateryTart.MusicAssistant.Models.Auth;
 
-public class MassCredentials : IMassCredentials
+public class MusicAssistantCredentials : IMusicAssistantCredentials
 {
     [JsonPropertyName("Token")] 
     public string? Token { get; set; }

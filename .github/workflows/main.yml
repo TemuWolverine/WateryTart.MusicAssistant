@@ -1,7 +1,4 @@
 name: build
-defaults:
-  run:
-    working-directory: src/WateryTart.MusicAssistant
 
 on:
   workflow_dispatch: {}
@@ -37,8 +34,11 @@ jobs:
           
       - name: Install dependencies
         run: dotnet restore
+        working-directory: src/WateryTart.MusicAssistant
+        
       - run: dotnet build  --configuration Release /p:Version=$VERSION
-      
+        working-directory: src/WateryTart.MusicAssistant
+        
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:

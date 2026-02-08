@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: WateryTart.MusicAssistant
-          path: bin/Release/
+          path: src/WateryTart.MusicAssistant/bin/Release/
 #      # Get a short-lived NuGet API key
 #      - name: NuGet login (OIDC → temp API key)
 #        uses: NuGet/login@v1

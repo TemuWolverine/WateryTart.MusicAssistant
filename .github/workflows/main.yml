@@ -1,4 +1,4 @@
-﻿﻿name: build
+name: build
 defaults:
   run:
     working-directory: src/WateryTart.MusicAssistant

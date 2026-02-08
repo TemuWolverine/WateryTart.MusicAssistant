@@ -26,14 +26,14 @@ jobs:
           cache-dependency-path: './src/WateryTart.MusicAssistant/packages.lock.json'
       - name: Install dependencies
         run: dotnet restore ./src/WateryTart.MusicAssistant
-      - run: dotnet build ./src/WateryTart.MusicAssistant -c Release
+      - run: dotnet build ./src/WateryTart.MusicAssistant --configuration Release
       - name: make nupkg
-        run: dotnet pack ./src/WateryTart.MusicAssistant
+        run: dotnet pack ./src/WateryTart.MusicAssistant --configuration Release
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: WateryTart.MusicAssistant
-          path: artifacts/WateryTart.MusicAssistant.nupkg
+          path: artifacts/WateryTart.MusicAssistant**.nupkg
 #      # Get a short-lived NuGet API key
 #      - name: NuGet login (OIDC → temp API key)
 #        uses: NuGet/login@v1

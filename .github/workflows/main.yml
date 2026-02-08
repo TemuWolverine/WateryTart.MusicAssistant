@@ -28,7 +28,7 @@ jobs:
         run: dotnet restore ./src/WateryTart.MusicAssistant
       - run: dotnet build ./src/WateryTart.MusicAssistant -c Release
       - name: make nupkg
-        run: dotnet pack ./src/WateryTart.Musicassistant
+        run: dotnet pack ./src/WateryTart.MusicAssistant
 
 #      # Get a short-lived NuGet API key
 #      - name: NuGet login (OIDC → temp API key)

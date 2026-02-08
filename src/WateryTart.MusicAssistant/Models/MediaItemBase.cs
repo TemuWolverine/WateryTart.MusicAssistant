@@ -5,19 +5,17 @@ namespace WateryTart.MusicAssistant.Models;
 
 public static partial class MediaItemBaseExtensions
 {
-    extension(MediaItemBase i)
+    public static string? GetProviderInstance(this MediaItemBase i)
     {
-        public string? GetProviderInstance()
-        {
-            string? provider = string.Empty;
-            if (!string.IsNullOrEmpty(i.Provider))
-                provider = i.Provider;
-            else if (i.ProviderMappings != null)
-                provider = i.ProviderMappings.FirstOrDefault()?.ProviderInstance;
+        string? provider = string.Empty;
+        if (!string.IsNullOrEmpty(i.Provider))
+            provider = i.Provider;
+        else if (i.ProviderMappings != null)
+            provider = i.ProviderMappings.FirstOrDefault()?.ProviderInstance;
 
-            return provider;
-        }
+        return provider;
     }
+
 }
 
 

@@ -5,20 +5,17 @@ namespace WateryTart.MusicAssistant.WebSocketExtensions;
 
 public static partial class WebsocketClientExtensions
 {
-    extension(IWsClient c)
+    public static void GetAuthToken(this IWsClient c, string username, string password, Action<AuthResponse> responseHandler)
     {
-        public void GetAuthToken(string username, string password, Action<AuthResponse> responseHandler)
+        var m = new Message(Commands.AuthLogin)
         {
-            var m = new Message(Commands.AuthLogin)
-            {
-                args = new Dictionary<string, object>()
+            args = new Dictionary<string, object>()
                 {
                     { "username", username },
                     { "password", password }
                 }
-            };
+        };
 
-            c.Send<AuthResponse>(m, Deserialise<AuthResponse>(responseHandler), true);
-        }
+        c.Send<AuthResponse>(m, Deserialise<AuthResponse>(responseHandler), true);
     }
 }

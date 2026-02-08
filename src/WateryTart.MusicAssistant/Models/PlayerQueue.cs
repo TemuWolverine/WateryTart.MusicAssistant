@@ -67,13 +67,14 @@ public class PlayerQueue : INotifyPropertyChanged
         }
     }
 
+    private QueuedItem _currentItem;
     [JsonPropertyName("current_item")]
     public QueuedItem? CurrentItem
     {
-        get => field;
+        get => _currentItem;
         set
         {
-            field = value;
+            _currentItem = value;
             NotifyPropertyChanged();
         }
     }

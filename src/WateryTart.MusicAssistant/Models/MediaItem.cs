@@ -6,16 +6,18 @@ namespace WateryTart.MusicAssistant.Models;
 
 public class MediaItem : Item, INotifyPropertyChanged
 {
+    private double _elapsedTime = 0;
+
     [JsonPropertyName("elapsed_time")]
     public double ElapsedTime
     {
-        get => field;
+        get => _elapsedTime;
         set
         {
-            field = value;
+            _elapsedTime = value;
             NotifyPropertyChanged();
         }
-    } = 0;
+    }
     public double Progress
     {
         get

@@ -34,15 +34,16 @@ public partial class CurrentMedia : INotifyPropertyChanged
     [JsonPropertyName("queue_item_id")]
     public string? QueueItemId { get; set; }
 
+    private double _elapsedTime = 0;
     [JsonPropertyName("elapsed_time")]
     public double? ElapsedTime
     {
-        get => field;
+        get => _elapsedTime;
         set
         {
             if (value.HasValue)
             {
-                field = value.Value;
+                _elapsedTime = value.Value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("Progress");
             }

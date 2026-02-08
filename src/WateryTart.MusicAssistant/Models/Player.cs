@@ -18,13 +18,14 @@ public partial class Player : INotifyPropertyChanged, IResult
     [JsonPropertyName("device_info")] public DeviceInfo? DeviceInfo { get; set; }
     [JsonPropertyName("supported_features")] public List<string>? SupportedFeatures { get; set; }
 
+    private PlaybackState _playbackState;
     [JsonPropertyName("playback_state")]
     public PlaybackState PlaybackState
     {
-        get => field;
+        get => _playbackState;
         set
         {
-            field = value;
+            _playbackState = value;
             NotifyPropertyChanged();
         }
     }

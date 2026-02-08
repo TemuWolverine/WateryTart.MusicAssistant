@@ -30,13 +30,14 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - run: dotnet build  --configuration Release
-      - name: make nupkg
-        run: dotnet pack --configuration Release
+# Should need this because the above *should* build the nupkg
+#      - name: make nupkg
+#        run: dotnet pack --configuration Release
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: WateryTart.MusicAssistant
-          path: artifacts/*.*
+          path: bin/release/
 #      # Get a short-lived NuGet API key
 #      - name: NuGet login (OIDC → temp API key)
 #        uses: NuGet/login@v1

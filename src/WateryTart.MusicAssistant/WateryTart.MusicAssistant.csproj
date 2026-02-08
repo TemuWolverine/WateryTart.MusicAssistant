@@ -25,6 +25,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\..\assets\logo.png">

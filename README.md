@@ -2,7 +2,7 @@
 > Disclaimer: This is an unofficial project and is not affiliated with, endorsed by, or associated with the Music Assistant project.
 > It is really just a proof of concept that has gotten out of hand - I'm very much a hobbyist coder, so I won't be surprised if I haven't somehow invented the definitive example of 'Worst Practices'
 
-A .NET10 client library for accesseing Music Assistant's API
+A .NET10 client library for accesseing Music Assistant's API [![build](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/main.yml/badge.svg)](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/main.yml)
 
 ## Getting Started
 ### Install

@@ -10,7 +10,7 @@ Clone or install from nuget
 ```dotnet add package WateryTart.MusicAssistant```
 
 ### Prereqs
-* .NET 10.0 SDK
+* .NET 8.0/10.0 SDK
 * [Music Assistant](https://www.music-assistant.io/) already installed.
 
 If you need to check the Music Assistant API docs, they can be found at   
@@ -38,8 +38,7 @@ var connected = await _wsClient.Connect(_settings.Credentials);
 #### RPC
 ```csharp
 RpcClient _rpcClient = new RpcClient("http://musicassistantserver:8095");
-var credentials = await _rpcClient.LoginAsync("username", "password");
-_rpcClient.SetAuthToken(credentials.Token);
+TODO
 ```
 
 

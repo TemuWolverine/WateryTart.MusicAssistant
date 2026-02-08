@@ -7,6 +7,12 @@
     <Platform Name="Any CPU" />
     <Platform Name="ARM64" />
   </Configurations>
+  <Folder Name="/Project/">
+    <File Path="../.github/workflows/main.yml" />
+    <File Path="../assets/logo.png" />
+    <File Path="../README.md" />
+    <File Path="../WateryTart.MusicAssistant.nuspec" />
+  </Folder>
   <Project Path="WateryTart.MusicAssistant.MassClient.Generators/WateryTart.MusicAssistant.Generators.csproj">
     <BuildType Solution="ARMRELEASE|*" Project="Release" />
     <BuildType Solution="X64Debug|*" Project="Release" />

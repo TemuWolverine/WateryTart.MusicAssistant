@@ -1,4 +1,6 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Buffers.Text;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models.Auth;
@@ -7,18 +9,28 @@ namespace WateryTart.MusicAssistant
 {
     public class RpcClient
     {
-        private readonly IMusicAssistantCredentials _credentials;
         private readonly string _baseUrl;
         private HttpClient client;
-        public RpcClient(IMusicAssistantCredentials credentials, string baseUrl = "http://10.0.1.20:8095/api")
+        public RpcClient(string baseUrl)
         {
-            _credentials = credentials;
             _baseUrl = baseUrl;
             client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.Token);
+            
+        }
 
+        public async Task<IMusicAssistantCredentials?> LoginAsync(string username, string password)
+        {
+            
+            return new MusicAssistantCredentials()
+            {
+                BaseUrl = _baseUrl,
+                Token = "1234"
+            };
+        }
 
-           // Send<List<Player>>(new Message(Commands.PlayersAll));
+        public void SetAuthToken(string token)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         public async Task<T?> Send<T>(MessageBase message)

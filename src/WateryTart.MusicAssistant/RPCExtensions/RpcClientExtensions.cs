@@ -1,11 +1,28 @@
-﻿using WateryTart.MusicAssistant.Messages;
+﻿using System.Threading.Tasks;
+using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
+using WateryTart.MusicAssistant.Models.Auth;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.RPCExtensions;
 
 public static partial class RpcClientExtensions
 {
+
+    public static async Task<AuthUser?> GetAuthToken(this RpcClient c, string username, string password)
+    {
+        var m = new Message(Commands.AuthLogin)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "username", username },
+                    { "password", password },
+                    { "provider_id", "builtin" }
+                }
+        };
+
+       return await c.Send<AuthUser>(m);
+    }
 
     /* Player related commands */
     public static async Task<List<Player>?> PlayersAllAsync(this RpcClient c)

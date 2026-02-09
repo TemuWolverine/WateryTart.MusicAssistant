@@ -12,6 +12,10 @@
     <File Path="../assets/logo.png" />
     <File Path="../README.md" />
   </Folder>
+  <Project Path="WateryTart.MusicAssistant.Demo/WateryTart.MusicAssistant.Demo.csproj" Id="11d53f90-f916-499b-b31f-c7c07643b5ae">
+    <BuildType Solution="ARMRELEASE|*" Project="Release" />
+    <BuildType Solution="X64Debug|*" Project="Release" />
+  </Project>
   <Project Path="WateryTart.MusicAssistant.MassClient.Generators/WateryTart.MusicAssistant.Generators.csproj">
     <BuildType Solution="ARMRELEASE|*" Project="Release" />
     <BuildType Solution="X64Debug|*" Project="Release" />

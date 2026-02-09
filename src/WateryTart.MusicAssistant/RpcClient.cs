@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models.Auth;
+using WateryTart.MusicAssistant.RPCExtensions;
 
 namespace WateryTart.MusicAssistant
 {
@@ -20,11 +21,13 @@ namespace WateryTart.MusicAssistant
 
         public async Task<IMusicAssistantCredentials?> LoginAsync(string username, string password)
         {
-            
-            return new MusicAssistantCredentials()
+            var result = await RpcClientExtensions.GetAuthToken(this, username, password);
+
+            return new MusicAssistantCredentials
             {
-                BaseUrl = _baseUrl,
-                Token = "1234"
+                Username = result.User.Username,
+                Token = result.AccessToken,
+                BaseUrl = _baseUrl
             };
         }
 

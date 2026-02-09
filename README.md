@@ -29,23 +29,33 @@ While the RPC API
 
 
 ### Usage: Connecting/Logging In
+Calling signatures stay the same in most cases, with only the result varying.
+Websocket responses from MusicAssistant are wrapped in a response/result with the matching message ID etc.
+
 #### Websocket
 ```csharp
+using WateryTart.MusicAssistant;
+using WateryTart.MusicAssistant.WebSocketExtensions;
+
 WsClient _wsClient = new WsClient();
-var connected = await _wsClient.Connect(_settings.Credentials);
+LoginResults credentials2 = await _wsClient.Login("username", "password^^", "musicassistantserver:8095");
+bool connected = await _wsClient.Connect(credentials2.Credentials);
  ```
+
+Notice the url does not include **http** or **api**. just IP/HOSTNAME:PORT. ws:// and /ws will be added automatically
 
 #### RPC
 ```csharp
-RpcClient _rpcClient = new RpcClient("http://musicassistantserver:8095");
-TODO
+using WateryTart.MusicAssistant;
+using WateryTart.MusicAssistant.RPCExtensions;
+
+RpcClient _rpcClient = new RpcClient("http://musicassistantserver:8095/api");
+var credentials = await _rpcClient.LoginAsync("username", "password");
+_rpcClient.SetAuthToken(credentials.Token);
 ```
 
 
 ### Usage: Data calls
-Calling signatures stay the same in most cases, with only the result varying.
-Websocket responses from MusicAssistant are wrapped 
-
 ```json
 {
   "message_id" : "1234", /*same ID as automatically fed in to match response*/

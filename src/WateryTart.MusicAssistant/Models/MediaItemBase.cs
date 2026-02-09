@@ -48,7 +48,7 @@ public abstract class MediaItemBase
     [JsonPropertyName("provider_mappings")]
     public List<ProviderMapping>? ProviderMappings { get; set; }
     [JsonPropertyName("metadata")] public Metadata? Metadata { get; set; }
-    public bool Favorite { get; set; }
+    [JsonPropertyName("favorite")] public bool Favorite { get; set; }
     [JsonPropertyName("year")] public int? Year { get; set; }
     [JsonPropertyName("image")] public Image? Image { get; set; }
 }

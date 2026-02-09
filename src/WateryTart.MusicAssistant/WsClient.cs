@@ -14,13 +14,23 @@ using Websocket.Client;
 
 namespace WateryTart.MusicAssistant
 {
+    /// <summary>
+    /// Provides a WebSocket client for communicating with the Music Assistant server.
+    /// Handles authentication, message routing, event streaming, and connection management.
+    /// </summary>
     public class WsClient : IWsClient
     {
         internal WebsocketClient? _client;
+        /// <summary>
+        /// Maps message IDs to response handlers for routing incoming messages.
+        /// </summary>
         internal ConcurrentDictionary<string, Action<string>> _routing = new();
         private IMusicAssistantCredentials? creds;
 
         private CancellationTokenSource _connectionCts = new CancellationTokenSource();
+        /// <summary>
+        /// Subject for publishing event responses to observers.
+        /// </summary>
         private readonly Subject<BaseEventResponse?> subject = new Subject<BaseEventResponse?>();
         private IDisposable? _reconnectionSubscription;
         private IDisposable? _messageSubscription;
@@ -44,15 +54,24 @@ namespace WateryTart.MusicAssistant
             PropertyNameCaseInsensitive = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             WriteIndented = false
-
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WsClient"/> class and configures logging.
+        /// </summary>
         public WsClient()
         {
             using ILoggerFactory factory = LoggerFactory.Create(builder => builder.AddConsole());
             logger = factory.CreateLogger("MassWsClient");
         }
 
+        /// <summary>
+        /// Authenticates with the Music Assistant server using the provided credentials and base URL.
+        /// </summary>
+        /// <param name="username">The username for authentication.</param>
+        /// <param name="password">The password for authentication.</param>
+        /// <param name="baseurl">The base URL of the Music Assistant server.</param>
+        /// <returns>A <see cref="LoginResults"/> object indicating success or failure and containing credentials if successful.</returns>
         public async Task<LoginResults> Login(string username, string password, string baseurl)
         {
             MusicAssistantCredentials mc = new MusicAssistantCredentials();
@@ -117,6 +136,12 @@ namespace WateryTart.MusicAssistant
             }
         }
 
+        /// <summary>
+        /// Connects to the Music Assistant WebSocket server using the provided credentials.
+        /// Handles reconnection and authentication.
+        /// </summary>
+        /// <param name="credentials">The credentials to use for authentication.</param>
+        /// <returns>True if connection and authentication succeed; otherwise, false.</returns>
         public async Task<bool> Connect(IMusicAssistantCredentials credentials)
         {
             var x = new MediaAssistantJsonContext();
@@ -195,12 +220,18 @@ namespace WateryTart.MusicAssistant
         /// Converts a base URL (e.g., "192.168.1.63:8095") to the WebSocket URL.
         /// Music Assistant WebSocket is on the same port as HTTP, just different protocol.
         /// </summary>
+        /// <param name="baseUrl">The base URL of the Music Assistant server.</param>
+        /// <returns>The WebSocket URL as a string.</returns>
         private static string GetWebSocketUrl(string baseUrl)
         {
             // WebSocket is on the same port as HTTP, just different protocol
             return $"ws://{baseUrl}/ws";
         }
 
+        /// <summary>
+        /// Sends an authentication message to the server using the provided credentials.
+        /// </summary>
+        /// <param name="credentials">The credentials containing the authentication token.</param>
         private void SendLogin(IMusicAssistantCredentials credentials)
         {
             logger.LogInformation("Sending authentication...");
@@ -237,6 +268,14 @@ namespace WateryTart.MusicAssistant
             _client?.Send(json);
         }
 
+        /// <summary>
+        /// Sends a message to the server and registers a response handler for the message.
+        /// Optionally ignores connection state.
+        /// </summary>
+        /// <typeparam name="T">The expected response type.</typeparam>
+        /// <param name="message">The message to send.</param>
+        /// <param name="responseHandler">The handler to invoke when a response is received.</param>
+        /// <param name="ignoreConnection">If true, sends the message regardless of connection state.</param>
         public void Send<T>(MessageBase message, Action<string> responseHandler, bool ignoreConnection = false)
         {
 
@@ -271,8 +310,15 @@ namespace WateryTart.MusicAssistant
             }
         }
 
+        /// <summary>
+        /// Indicates whether the client is currently connected to the server.
+        /// </summary>
         public bool IsConnected => (_client != null && _client.IsRunning);
 
+        /// <summary>
+        /// Handles incoming WebSocket messages, routes responses, and publishes events.
+        /// </summary>
+        /// <param name="response">The received WebSocket response message.</param>
         private void OnNext(ResponseMessage response)
         {
             if (string.IsNullOrEmpty(response.Text))
@@ -342,8 +388,14 @@ namespace WateryTart.MusicAssistant
             }
         }
 
+        /// <summary>
+        /// Gets an observable stream of event responses from the server.
+        /// </summary>
         public IObservable<BaseEventResponse> Events => subject;
 
+        /// <summary>
+        /// Disconnects from the server and disposes of all resources.
+        /// </summary>
         public async Task DisconnectAsync()
         {
             try
@@ -417,6 +469,9 @@ namespace WateryTart.MusicAssistant
             }
         }
 
+        /// <summary>
+        /// Waits asynchronously until authentication is complete or the connection is cancelled.
+        /// </summary>
         private async Task WaitForAuthenticationAsync()
         {
             while (!_isAuthenticated && !_connectionCts.Token.IsCancellationRequested)

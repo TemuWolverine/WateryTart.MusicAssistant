@@ -7,6 +7,13 @@
     <Platform Name="Any CPU" />
     <Platform Name="ARM64" />
   </Configurations>
+  <Folder Name="/Docs/">
+    <File Path="../docs/getting-started-rpc.md" />
+    <File Path="../docs/getting-started-ws.md" />
+    <File Path="../docs/getting-started.md" />
+    <File Path="../docs/introduction.md" />
+    <File Path="../docs/toc.yml" />
+  </Folder>
   <Folder Name="/Project/">
     <File Path="../.github/workflows/main.yml" />
     <File Path="../assets/logo.png" />

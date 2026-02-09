@@ -189,7 +189,7 @@ public static partial class RpcClientExtensions
         if (limit != null)
             args.Add("limit", limit);
 
-        var m = new Message(Commands.Search)
+        var m = new Message(Commands.MusicSearch)
         {
             args = args
         };

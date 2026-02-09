@@ -26,7 +26,7 @@ public static partial class WebsocketClientExtensions
 
     public static async Task<CountResponse> TrackCountAsync(this IWsClient c)
     {
-        return await SendAsync<CountResponse>(c, JustId("music/tracks/count", "false", "favourite_only"));
+        return await SendAsync<CountResponse>(c, JustId(Commands.MusicTracksCount, "false", "favourite_only"));
     }
 
     public static async Task<TracksResponse> TracksGetAsync(this IWsClient c, int? limit = null, int? offset = null)
@@ -75,7 +75,7 @@ public static partial class WebsocketClientExtensions
 
     public static async Task<PlaylistResponse> PlaylistGetAsync(this IWsClient c, string playlistId, string provider_instance_id_or_domain)
     {
-        return await SendAsync<PlaylistResponse>(c, IdAndProvider(Commands.PlaylistGet, playlistId, provider_instance_id_or_domain));
+        return await SendAsync<PlaylistResponse>(c, IdAndProvider(Commands.MusicPlaylistsGet, playlistId, provider_instance_id_or_domain));
     }
 
     public static async Task<PlaylistsResponse> PlaylistsGetAsync(this IWsClient c, int? limit = null, int? offset = null)
@@ -103,7 +103,7 @@ public static partial class WebsocketClientExtensions
 
     public static async Task<TracksResponse> PlaylistTracksGetAsync(this IWsClient c, string playlistId, string provider_instance_id_or_domain)
     {
-        return await SendAsync<TracksResponse>(c, IdAndProvider(Commands.PlaylistTracksGet, playlistId, provider_instance_id_or_domain));
+        return await SendAsync<TracksResponse>(c, IdAndProvider(Commands.MusicPlaylistsPlaylistTracks, playlistId, provider_instance_id_or_domain));
     }
 
     public static async Task<ArtistsResponse> ArtistsGetAsync(this IWsClient c, int? limit = null, int? offset = null)

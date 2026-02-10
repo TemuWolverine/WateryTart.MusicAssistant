@@ -5,6 +5,7 @@ public static partial class Commands
     // Provider mapping
     public const string MusicAddProviderMapping = "music/provider/add_mapping";
     public const string MusicAlbumGet = "music/albums/get";
+    public const string MusicAlbumsCount = "music/albums/count";
     public const string MusicAlbumLibraryItems = "music/albums/library_items";
     public const string MusicAlbumTracks = "music/albums/album_tracks";
     public const string MusicAlbumVersions = "music/albums/album_versions";
@@ -69,6 +70,7 @@ public static partial class Commands
     // Recently played/added
     public const string MusicRecentlyAddedTracks = "music/tracks/recently_added";
     public const string MusicRecentlyPlayedTracks = "music/tracks/recently_played";
+    public const string MusicTracksLibraryItems = "music/tracks/library_items";
 
     // Recommendations & Refresh
     public const string MusicRecommendations = "music/recommendations";

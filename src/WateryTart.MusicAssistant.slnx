@@ -1,13 +1,6 @@
 <Solution>
-  <Configurations>
-    <BuildType Name="ARMRELEASE" />
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
-    <BuildType Name="X64Debug" />
-    <Platform Name="Any CPU" />
-    <Platform Name="ARM64" />
-  </Configurations>
   <Folder Name="/Docs/">
+    <File Path="../docfx.json" />
     <File Path="../docs/getting-started-rpc.md" />
     <File Path="../docs/getting-started-ws.md" />
     <File Path="../docs/getting-started.md" />
@@ -19,15 +12,6 @@
     <File Path="../assets/logo.png" />
     <File Path="../README.md" />
   </Folder>
-  <Project Path="WateryTart.MusicAssistant.Demo/WateryTart.MusicAssistant.Demo.csproj" Id="11d53f90-f916-499b-b31f-c7c07643b5ae">
-    <BuildType Solution="ARMRELEASE|*" Project="Release" />
-    <BuildType Solution="X64Debug|*" Project="Release" />
-  </Project>
-  <Project Path="WateryTart.MusicAssistant.MassClient.Generators/WateryTart.MusicAssistant.Generators.csproj">
-    <BuildType Solution="ARMRELEASE|*" Project="Release" />
-    <BuildType Solution="X64Debug|*" Project="Release" />
-  </Project>
-  <Project Path="WateryTart.MusicAssistant/WateryTart.MusicAssistant.csproj">
-    <Platform Solution="*|ARM64" Project="ARM64" />
-  </Project>
+  <Project Path="WateryTart.MusicAssistant.Demo/WateryTart.MusicAssistant.Demo.csproj" />
+  <Project Path="WateryTart.MusicAssistant/WateryTart.MusicAssistant.csproj" />
 </Solution>

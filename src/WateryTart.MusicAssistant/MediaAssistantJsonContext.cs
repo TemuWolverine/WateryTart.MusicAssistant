@@ -114,6 +114,15 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<PlayerQueue>))]
 [JsonSerializable(typeof(ResponseBase<Playlist>))]
 [JsonSerializable(typeof(ResponseBase<Search>))]
+[JsonSerializable(typeof(UserResponse))]
+[JsonSerializable(typeof(AuthToken))]
+[JsonSerializable(typeof(ItemsListingArtistalbumsArtistalbums))]
+[JsonSerializable(typeof(Provider))]
+[JsonSerializable(typeof(UserPreferences))]
+[JsonSerializable(typeof(ResponseBase<List<AuthToken>>))]
+[JsonSerializable(typeof(ResponseBase<Provider>))]
+[JsonSerializable(typeof(ResponseBase<string>))]
+[JsonSerializable(typeof(ResponseBase<User>))]
 public partial class MediaAssistantJsonContext : JsonSerializerContext
 {
 }

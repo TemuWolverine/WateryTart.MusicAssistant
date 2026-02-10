@@ -5,7 +5,7 @@ namespace WateryTart.MusicAssistant.WebSocketExtensions
 {
     public static partial class WebsocketClientExtensions
     {
-        public static async Task<SearchResponse> SearchAsync(this IWsClient c, string query, int? limit = null, bool library_only = true)
+        public static async Task<SearchResponse> SearchAsync(this IWsClient c, string query, int? limit = null, bool library_only = false)
         {
             var args = new Dictionary<string, object>()
             {

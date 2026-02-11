@@ -1,6 +1,4 @@
-﻿using WateryTart.MusicAssistant.Models;
-
-namespace WateryTart.MusicAssistant;
+﻿namespace WateryTart.MusicAssistant.Models;
 
 public static partial class MediaItemBaseExtensions
 {

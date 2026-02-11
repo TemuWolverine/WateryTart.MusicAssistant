@@ -396,10 +396,8 @@ public class MusicAssistantClientWs
 
                 case EventType.QueueAdded:
                 case EventType.QueueUpdated:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueEventResponse));
-                    break;
-
                 case EventType.QueueItemsUpdated:
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueEventResponse));
                     break;
 
                 case EventType.QueueTimeUpdated:

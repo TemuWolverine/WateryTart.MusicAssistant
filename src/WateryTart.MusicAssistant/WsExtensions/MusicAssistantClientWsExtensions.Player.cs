@@ -97,4 +97,18 @@ public static partial class MusicAssistantClientWsExtensions
     {
         return await SendAsync<PlayersQueuesResponse>(c, ClientHelpers.JustId(Commands.PlayerPrevious, playerId, "player_id"));
     }
+
+    public static async Task<TempResponse> PlayerSeekAsync(this MusicAssistantClientWs c, string queueId, int position)
+    {
+        var m = new Message(Commands.PlayerQueuesSeek)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "position", position },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
 }

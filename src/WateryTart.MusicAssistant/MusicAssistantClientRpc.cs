@@ -49,4 +49,16 @@ public class MusicAssistantClientRpc
         return responseProper;
     }
 
+    public async Task Send(MessageBase message)
+    {
+        //Build request
+        var request = new HttpRequestMessage(HttpMethod.Post, _baseurl);
+        request.Content = new StringContent(message.ToJson());
+
+        //Send request
+        var response = await client.SendAsync(request);
+
+        //Convert response to T 
+        var responseBody = await response.Content.ReadAsStringAsync();
+    }
 }

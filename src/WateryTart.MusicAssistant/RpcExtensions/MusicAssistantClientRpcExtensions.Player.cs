@@ -2,6 +2,7 @@
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
 using WateryTart.MusicAssistant.Models.Enums;
+using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.RpcExtensions;
 
@@ -140,5 +141,19 @@ public static partial class MusicAssistantClientRpcExtensions
     public static async Task<List<PlayerQueue>?> PlayerPreviousAsync(this MusicAssistantClientRpc c, string playerId)
     {
         return await c.Send<List<PlayerQueue>>(ClientHelpers.JustId(Commands.PlayerPrevious, playerId, "player_id"));
+    }
+
+    public static async Task<Task> PlayerSeekAsync(this MusicAssistantClientRpc c, string queueId, int position)
+    {
+        var m = new Message(Commands.PlayerQueuesSeek)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "position", position },
+                }
+        };
+
+        return c.Send(m);
     }
 }

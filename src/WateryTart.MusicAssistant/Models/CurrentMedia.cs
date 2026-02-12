@@ -26,7 +26,7 @@ public partial class CurrentMedia : INotifyPropertyChanged
     public string? ImageUrl { get; set; }
     
     [JsonPropertyName("duration")]
-    public int? Duration { get; set; }
+    public double? Duration { get; set; }
     
     [JsonPropertyName("queue_id")]
     public string? QueueId { get; set; }

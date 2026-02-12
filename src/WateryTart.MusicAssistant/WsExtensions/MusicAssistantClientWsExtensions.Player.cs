@@ -68,6 +68,20 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<PlayersQueuesResponse>(c, m);
     }
 
+    public static async Task<PlayersQueuesResponse> SetPlayerGroupVolumeAsync(this MusicAssistantClientWs c, string playerId, int volume)
+    {
+        var m = new Message(Commands.PlayerGroupVolume)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "player_id", playerId },
+                    { "volume_level", volume },
+                }
+        };
+
+        return await SendAsync<PlayersQueuesResponse>(c, m);
+    }
+
     public static async Task<PlayersQueuesResponse> PlayerGroupVolumeDownAsync(this MusicAssistantClientWs c, string playerId)
     {
         return await SendAsync<PlayersQueuesResponse>(c, ClientHelpers.JustId(Commands.PlayerGroupVolumeDown, playerId, "player_id"));

@@ -24,7 +24,7 @@ public static partial class MusicAssistantClientRpcExtensions
     /// <param name="id">The ID of the queue.</param>
     public static async Task<List<QueuedItem>?> GetPlayerQueueItemsAsync(this MusicAssistantClientRpc c, string id)
     {
-        return await c.Send< List<QueuedItem>> (ClientHelpers.JustId(Commands.PlayerQueueItems, id, "queue_id"));
+        return await c.Send<List<QueuedItem>>(ClientHelpers.JustId(Commands.PlayerQueueItems, id, "queue_id"));
     }
 
     /// <summary>
@@ -79,6 +79,20 @@ public static partial class MusicAssistantClientRpcExtensions
 
         if (radiomode)
             m.args.Add("radio_mode", true);
+
+        return await c.Send<List<PlayerQueue>>(m);
+    }
+
+    public static async Task<List<PlayerQueue>?> SetPlayerGroupVolumeAsync(this MusicAssistantClientRpc c, string playerId, int volume)
+    {
+        var m = new Message(Commands.PlayerGroupVolume)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "player_id", playerId },
+                    { "volume_level", volume },
+                }
+        };
 
         return await c.Send<List<PlayerQueue>>(m);
     }

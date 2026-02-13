@@ -1,13 +1,15 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
 namespace WateryTart.MusicAssistant.Models;
 
-public class MediaItem : Item
+public partial class MediaItem : Item
 {
     [JsonPropertyName("elapsed_time")]
-    public double ElapsedTime { get; set; }
+    [ObservableProperty]
+    public partial double ElapsedTime { get; set; }
     public double Progress
     {
         get

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace WateryTart.MusicAssistant.Models;
 
-public class MediaItem : Item, INotifyPropertyChanged
+public class MediaItem : Item
 {
     private double _elapsedTime = 0;
 
@@ -25,16 +25,6 @@ public class MediaItem : Item, INotifyPropertyChanged
             if (Duration == null || Duration == 0)
                     return 0;
             return (ElapsedTime / Duration.Value) * 100;
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-    {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

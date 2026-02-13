@@ -374,8 +374,17 @@ public class MusicAssistantClientWs
 
             switch (e.EventName)
             {
-                case EventType.MediaItemPlayed:
+                case EventType.MediaItemAdded:
                     _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    break;
+                case EventType.MediaItemUpdated:
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    break;
+                case EventType.MediaItemDeleted:
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    break;
+                case EventType.MediaItemPlayed:
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEvent2Response));
                     break;
 
                 case EventType.PlayerAdded:
@@ -413,6 +422,7 @@ public class MusicAssistantClientWs
         {
             _logger.LogError(ex, "JSON Deserialization Error");
             _logger.LogDebug("Path: {Path}", ex.Path);
+            _logger.LogDebug("Data: {Path}", response.Text);
         }
     }
 

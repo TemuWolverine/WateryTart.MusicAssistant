@@ -5,7 +5,9 @@ using System.Text.Json.Serialization;
 namespace WateryTart.MusicAssistant.Models;
 
 [ObservableObject]
+#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 public partial class QueuedItem
+#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("duration")]
     public int? Duration { get; set; }

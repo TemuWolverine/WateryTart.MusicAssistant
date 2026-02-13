@@ -26,8 +26,11 @@ jobs:
 
       # Build project
       - uses: actions/checkout@v6
+        if: ${{ steps.release.outputs.release_created }}
+        
       - name: Setup .NET 10.x
         uses: actions/setup-dotnet@v5
+        if: ${{ steps.release.outputs.release_created }}
         with:
           dotnet-version: '10.x'
           cache: true
@@ -35,12 +38,15 @@ jobs:
           
       - name: Install dependencies
         run: dotnet restore
+        if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         
       - run: dotnet build  --configuration Release /p:Version=$VERSION
+        if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         
       - name: Upload artifact
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/upload-artifact@v6
         with:
           name: WateryTart.MusicAssistant
@@ -48,6 +54,7 @@ jobs:
           
       # Get a short-lived NuGet API key
       - name: NuGet login (OIDC → temp API key)
+        if: ${{ steps.release.outputs.release_created }}
         uses: NuGet/login@v1
         id: login
         with:
@@ -55,5 +62,5 @@ jobs:
     
       # Push the package
       - name: NuGet push
-        if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v')
+        if: ${{ steps.release.outputs.release_created && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v') }}
         run: dotnet nuget push src/WateryTart.MusicAssistant/bin/Release/WateryTart.MusicAssistant.$VERSION.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

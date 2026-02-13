@@ -1,4 +1,5 @@
 ﻿using WateryTart.MusicAssistant.Messages;
+using WateryTart.MusicAssistant.Models;
 using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WsExtensions;
@@ -295,5 +296,30 @@ public static partial class MusicAssistantClientWsExtensions
             m.args["offset"] = offset.Value.ToString();
         }
         return await SendAsync<TracksResponse>(c, m);
+    }
+
+    public static async Task<TempResponse> AddFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavouritesAddItem)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "item", t },
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+    public static async Task<TempResponse> RemoveFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavouritesRemoveItem)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "media_type", t.MediaType },
+                    { "library_item_id", t.ItemId}
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
     }
 }

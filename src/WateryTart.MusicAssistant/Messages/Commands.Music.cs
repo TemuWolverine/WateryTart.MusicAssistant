@@ -25,8 +25,8 @@ public static partial class Commands
 
     // Browse & Favourites
     public const string MusicBrowse = "music/browse";
-    public const string MusicFavouritesAddItem = "music/favourites/add_item";
-    public const string MusicFavouritesRemoveItem = "music/favourites/remove_item";
+    public const string MusicFavouritesAddItem = "music/favorites/add_item";
+    public const string MusicFavouritesRemoveItem = "music/favorites/remove_item";
 
     // Genres
     public const string MusicGenresCount = "music/genres/count";

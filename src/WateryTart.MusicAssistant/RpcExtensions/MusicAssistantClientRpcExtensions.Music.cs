@@ -296,4 +296,29 @@ public static partial class MusicAssistantClientRpcExtensions
         }
         return await c.Send<List<Item>?>(m);
     }
+
+    public static async Task<Task> AddFavoriteItemAsync(this MusicAssistantClientRpc c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavouritesAddItem)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "item", t },
+                }
+        };
+        return c.Send(m);
+    }
+
+    public static async Task<Task> RemoveFavoriteItemAsync(this MusicAssistantClientRpc c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavouritesRemoveItem)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "media_type", t.MediaType },
+                    { "library_item_id", t.ItemId}
+                }
+        };
+        return c.Send(m);
+    }
 }

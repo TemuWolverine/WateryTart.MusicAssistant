@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
-public partial class CurrentMedia : INotifyPropertyChanged
+[ObservableObject]
+public partial class CurrentMedia
 {
     [JsonPropertyName("uri")]
     public string? Uri { get; set; }
@@ -34,21 +36,11 @@ public partial class CurrentMedia : INotifyPropertyChanged
     [JsonPropertyName("queue_item_id")]
     public string? QueueItemId { get; set; }
 
-    private double _elapsedTime = 0;
     [JsonPropertyName("elapsed_time")]
-    public double? ElapsedTime
-    {
-        get => _elapsedTime;
-        set
-        {
-            if (value.HasValue)
-            {
-                _elapsedTime = value.Value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged("Progress");
-            }
-        }
-    }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Progress))]
+    public partial double? ElapsedTime { get; set; }
+
     [JsonPropertyName("progress")]
     public double Progress
     {
@@ -63,14 +55,4 @@ public partial class CurrentMedia : INotifyPropertyChanged
 
     [JsonPropertyName("elapsed_time_last_updated")]
     public double? elapsed_time_last_updated { get; set; }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-    {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
 }

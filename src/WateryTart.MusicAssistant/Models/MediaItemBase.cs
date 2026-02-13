@@ -1,20 +1,18 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
-
-public abstract class MediaItemBase : INotifyPropertyChanged
+[ObservableObject]
+public abstract partial class MediaItemBase
 {
-    private bool favorite;
-
     [JsonPropertyName("item_id")]
     public string? ItemId { get; set; }
 
     public string? Provider { get; set; }
-    public string? Name { get; set; }
+    [ObservableProperty] 
+    public partial string Name { get; set; }
     [JsonPropertyName("version")] public string? Version { get; set; }
 
     [JsonPropertyName("sort_name")]
@@ -36,23 +34,10 @@ public abstract class MediaItemBase : INotifyPropertyChanged
 
     [JsonPropertyName("provider_mappings")]
     public List<ProviderMapping>? ProviderMappings { get; set; }
-    [JsonPropertyName("metadata")] public Metadata? Metadata { get; set; }
+    [JsonPropertyName("metadata")] 
+    public Metadata? Metadata { get; set; }
     [JsonPropertyName("favorite")]
-    public bool Favorite
-    {
-        get => favorite; 
-        set
-        {
-            favorite = value; 
-            NotifyPropertyChanged();
-        }
-    }
+    public bool Favorite { get; set; }
     [JsonPropertyName("year")] public int? Year { get; set; }
     [JsonPropertyName("image")] public Image? Image { get; set; }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-    internal void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }

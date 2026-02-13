@@ -10,8 +10,8 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Music Assistant Client Library</Title>
-		<PackageProjectUrl>https://github.com/thewoodknight/WateryTart</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/thewoodknight/WateryTart</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/thewoodknight/WateryTart.MusicAssistant</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/thewoodknight/WateryTart.MusicAssistant</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<Company>WateryTart</Company>
 		<Authors>WateryTart Contributors</Authors>
@@ -19,9 +19,10 @@
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReleaseNotes>test</PackageReleaseNotes>
 		<IncludeSymbols>True</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	</PropertyGroup>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>	
+</PropertyGroup>
 	
 	<PropertyGroup>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
@@ -32,6 +33,7 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+		<None Include="..\..\CHANGELOG.md" Link="CHANGELOG.md" />
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

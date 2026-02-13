@@ -7,7 +7,9 @@ using WateryTart.MusicAssistant.Models.Enums;
 namespace WateryTart.MusicAssistant.Models;
 
 [ObservableObject]
+#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 public partial class CurrentMedia
+#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("uri")]
     public string? Uri { get; set; }

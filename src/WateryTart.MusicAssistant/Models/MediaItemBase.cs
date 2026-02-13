@@ -5,7 +5,10 @@ using WateryTart.MusicAssistant.Models.Enums;
 namespace WateryTart.MusicAssistant.Models;
 
 [ObservableObject]
+
+#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 public abstract partial class MediaItemBase
+#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("item_id")]
     public string? ItemId { get; set; }

@@ -7,7 +7,9 @@ using WateryTart.MusicAssistant.Models.Enums;
 namespace WateryTart.MusicAssistant.Models;
 
 [ObservableObject]
+#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 public partial class Player : IResult
+#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("active_group")] public object? ActiveGroup { get; set; }
     [JsonPropertyName("active_source")] public string? ActiveSource { get; set; }

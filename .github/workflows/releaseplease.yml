@@ -19,12 +19,6 @@ jobs:
         with:
           release-type: simple
 
-      - name: Set Version Variable
-        if: ${{ github.ref_type == 'tag' }}
-        env:
-          TAG: ${{ github.ref_name }}
-        run: echo "VERSION=${TAG#v}" >> $GITHUB_ENV
-
       # Build project
       - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.release_created }}
@@ -42,7 +36,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         
-      - run: dotnet build  --configuration Release /p:Version=$VERSION
+      - run: dotnet build  --configuration Release /p:Version=${{ steps.release.outputs.release_version }}
         if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         

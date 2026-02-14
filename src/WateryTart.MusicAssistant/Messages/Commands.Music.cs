@@ -34,7 +34,7 @@ public static partial class Commands
     public const string MusicGenresLibraryItems = "music/genres/library_items";
 
     // Library Items & Item Management
-    public const string MusicGetLibraryItem = "music/library/get_item";
+    public const string MusicGetLibraryItem = "music/get_library_item";
     public const string MusicInProgressItems = "music/in_progress/items";
     public const string MusicItem = "music/item";
     public const string MusicItemByUri = "music/item/by_uri";

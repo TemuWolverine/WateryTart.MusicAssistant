@@ -1,20 +1,17 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
 using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
-[ObservableObject]
-
-#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+[NotifyPropertyChanged]
 public abstract partial class MediaItemBase
-#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("item_id")]
     public string? ItemId { get; set; }
 
     public string? Provider { get; set; }
-    [ObservableProperty] 
+    [NotifyingProperty] 
     public partial string Name { get; set; }
     [JsonPropertyName("version")] public string? Version { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -6,10 +6,10 @@ using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
-[ObservableObject]
-#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+[NotifyPropertyChanged]
+
 public partial class Player : IResult
-#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+
 {
     [JsonPropertyName("active_group")] public object? ActiveGroup { get; set; }
     [JsonPropertyName("active_source")] public string? ActiveSource { get; set; }
@@ -17,7 +17,7 @@ public partial class Player : IResult
     [JsonPropertyName("can_group_with")] public List<string>? CanGroupWith { get; set; }
 
     [JsonPropertyName("current_media")]
-    [ObservableProperty] public partial CurrentMedia? CurrentMedia { get; set; }
+    [NotifyingProperty] public partial CurrentMedia? CurrentMedia { get; set; }
     [JsonPropertyName("device_info")] public DeviceInfo? DeviceInfo { get; set; }
     [JsonPropertyName("display_name")] public string? DisplayName { get; set; }
     [JsonPropertyName("elapsed_time")] public double? ElapsedTime { get; set; }
@@ -34,7 +34,7 @@ public partial class Player : IResult
     public string? Name { get; set; }
 
     [JsonPropertyName("playback_state")]
-    [ObservableProperty]
+    [NotifyingProperty]
     public partial PlaybackState PlaybackState { get; set; }
 
     [JsonPropertyName("player_id")] public string? PlayerId { get; set; }
@@ -49,7 +49,7 @@ public partial class Player : IResult
     [JsonPropertyName("volume_control")] public string? VolumeControl { get; set; }
 
     [JsonPropertyName("volume_level")]
-    [ObservableProperty]
+    [NotifyingProperty]
     public partial int? VolumeLevel { get; set; }
 
     [JsonPropertyName("volume_muted")] public bool? VolumeMuted { get; set; }

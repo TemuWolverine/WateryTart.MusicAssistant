@@ -1,15 +1,14 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using WateryTart.MusicAssistant.Generators.Attributes;
+using WateryTart.MusicAssistant.Generators.Attributes;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
-[ObservableObject]
-#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+[NotifyPropertyChanged]
 public partial class CurrentMedia
-#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
 {
     [JsonPropertyName("uri")]
     public string? Uri { get; set; }
@@ -39,8 +38,8 @@ public partial class CurrentMedia
     public string? QueueItemId { get; set; }
 
     [JsonPropertyName("elapsed_time")]
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Progress))]
+    [NotifyingProperty]
+    [AlsoNotifyFor(nameof(Progress))]
     public partial double? ElapsedTime { get; set; }
 
     [JsonPropertyName("progress")]

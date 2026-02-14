@@ -46,9 +46,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.Extensions.Logging" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Websocket.Client" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators.Attributes\WateryTart.MusicAssistant.Generators.Attributes.csproj" />
+		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators\WateryTart.MusicAssistant.Generators.csproj"  OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"  />
 	</ItemGroup>
 </Project>

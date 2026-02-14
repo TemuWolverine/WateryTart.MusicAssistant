@@ -5,9 +5,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using WateryTart.MusicAssistant.Generators;
-
-namespace WateryTart.Service.MassClient.Generators;
+namespace WateryTart.MusicAssistant.Generators;
 
 [Generator]
 public class JsonContextSourceGenerator : IIncrementalGenerator

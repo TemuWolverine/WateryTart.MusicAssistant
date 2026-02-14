@@ -8,10 +8,13 @@
     <File Path="../docs/toc.yml" />
   </Folder>
   <Folder Name="/Project/">
-    <File Path="../.github/workflows/main.yml" />
+    <File Path="../.github/workflows/releaseplease.yml" />
     <File Path="../assets/logo.png" />
+    <File Path="../CHANGELOG.md" />
     <File Path="../README.md" />
   </Folder>
   <Project Path="WateryTart.MusicAssistant.Demo/WateryTart.MusicAssistant.Demo.csproj" />
+  <Project Path="WateryTart.MusicAssistant.Generators.Attributes/WateryTart.MusicAssistant.Generators.Attributes.csproj" Id="20e19c06-a45e-4e7c-b889-6456c2fb882e" />
+  <Project Path="WateryTart.MusicAssistant.Generators/WateryTart.MusicAssistant.Generators.csproj" />
   <Project Path="WateryTart.MusicAssistant/WateryTart.MusicAssistant.csproj" />
 </Solution>

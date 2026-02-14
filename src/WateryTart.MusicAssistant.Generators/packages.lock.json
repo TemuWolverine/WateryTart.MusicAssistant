@@ -94,6 +94,9 @@
           "System.Runtime.CompilerServices.Unsafe": "6.1.0"
         }
       },
+      "waterytart.musicassistant.generators.attributes": {
+        "type": "Project"
+      },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "CentralTransitive",
         "requested": "[3.11.0, )",

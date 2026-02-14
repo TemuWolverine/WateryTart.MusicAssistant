@@ -1,13 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace WateryTart.MusicAssistant.Models;
 
-[ObservableObject]
-#pragma warning disable MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+[NotifyPropertyChanged]
 public partial class QueuedItem
-#pragma warning restore MVVMTK0033 // Inherit from ObservableObject instead of using [ObservableObject]
+
 {
     [JsonPropertyName("duration")]
     public int? Duration { get; set; }
@@ -15,7 +14,7 @@ public partial class QueuedItem
     [JsonPropertyName("image")]
     public Image? Image { get; set; }
 
-    [ObservableProperty]
+    [NotifyingProperty]
     [JsonPropertyName("media_item")]
     public partial MediaItem? MediaItem { get; set; }
 
@@ -28,7 +27,7 @@ public partial class QueuedItem
     [JsonPropertyName("queue_item_id")]
     public string? QueueItemId { get; set; }
 
-    [ObservableProperty]
+    [NotifyingProperty]
     [JsonPropertyName("sort_index")]
     public partial int SortIndex { get; set; }
 

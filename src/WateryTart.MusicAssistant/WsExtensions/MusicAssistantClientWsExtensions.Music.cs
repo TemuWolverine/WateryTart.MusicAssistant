@@ -1,5 +1,6 @@
 ﻿using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
+using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WsExtensions;
@@ -322,4 +323,19 @@ public static partial class MusicAssistantClientWsExtensions
         };
         return await SendAsync<TempResponse>(c, m);
     }
+
+    public static async Task<ItemResponse> GetLibraryItemAsync(this MusicAssistantClientWs c, MediaType type, string itemId, string providerInstanceIdOrDomain)
+    {
+        var m = new Message(Commands.MusicGetLibraryItem)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "media_type", type },
+                    { "item_id", itemId},
+                    { "provider_instance_id_or_domain", providerInstanceIdOrDomain}
+                }
+        };
+        return await SendAsync<ItemResponse>(c, m);
+    }
+    
 }

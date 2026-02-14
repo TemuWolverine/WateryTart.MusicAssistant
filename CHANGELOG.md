@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.4](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.3...v2.2.4) (2026-02-14)
+
+
+### Bug Fixes
+
+* Release-Please ID now set ([5bf0d8e](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/5bf0d8e11c285f8dad7706bd39f682319f4aba34))
+
 ## [2.2.3](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.2...v2.2.3) (2026-02-14)
 
 

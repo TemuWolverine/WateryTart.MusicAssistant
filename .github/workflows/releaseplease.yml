@@ -7,6 +7,7 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  id-token: write
 
 name: release-please
 
@@ -58,4 +59,4 @@ jobs:
       # Push the package
       - name: NuGet push
         if: ${{ steps.release.outputs.release_created }}
-        run: dotnet nuget push src/WateryTart.MusicAssistant/bin/Release/WateryTart.MusicAssistant.$VERSION.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push src/WateryTart.MusicAssistant/bin/Release/WateryTart.MusicAssistant.${{ steps.release.outputs.version }}.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

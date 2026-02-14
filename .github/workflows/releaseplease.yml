@@ -19,6 +19,13 @@ jobs:
         with:
           release-type: simple
 
+      - name: List all release step outputs (for debugging)
+        run: |
+          echo "All available outputs for 'release' step:"
+          for output in release_created release_tag release_version upload_url html_url; do
+            echo "$output: ${{ steps.release.outputs[output] }}"
+          done
+
       # Build project
       - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.release_created }}
@@ -36,7 +43,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         
-      - run: dotnet build  --configuration Release /p:Version=${{ steps.release.outputs.release_version }}
+      - run: dotnet build  --configuration Release /p:Version=${{ steps.release.outputs.version }}
         if: ${{ steps.release.outputs.release_created }}
         working-directory: src/WateryTart.MusicAssistant
         
@@ -57,5 +64,5 @@ jobs:
     
       # Push the package
       - name: NuGet push
-        if: ${{ steps.release.outputs.release_created && github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/v') }}
+        if: ${{ steps.release.outputs.release_created }}
         run: dotnet nuget push src/WateryTart.MusicAssistant/bin/Release/WateryTart.MusicAssistant.$VERSION.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

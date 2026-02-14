@@ -85,7 +85,7 @@ public class MusicAssistantClientWs
     /// <returns>True if connection and authentication succeed; otherwise, false.</returns>
     public async Task<bool> Connect()
     {
-        var x = new MediaAssistantJsonContext();
+        var x = new MusicAssistantJsonContext();
         _logger.LogInformation("WS Connecting");
 
         lock (_connectLock)
@@ -357,7 +357,7 @@ public class MusicAssistantClientWs
         }
 
         // Use JsonSerializer.Deserialize with JsonTypeInfo to avoid RequiresUnreferencedCode warning
-        TempResponse? y = JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.TempResponse);
+        TempResponse? y = JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.TempResponse);
 
         // Use TryRemove instead of ContainsKey + indexer
         if (y?.message_id != null && _routing.TryRemove(y.message_id, out var handler))
@@ -375,16 +375,16 @@ public class MusicAssistantClientWs
             switch (e.EventName)
             {
                 case EventType.MediaItemAdded:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.MediaItemEventResponse));
                     break;
                 case EventType.MediaItemUpdated:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.MediaItemEventResponse));
                     break;
                 case EventType.MediaItemDeleted:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEventResponse));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.MediaItemEventResponse));
                     break;
                 case EventType.MediaItemPlayed:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.MediaItemEvent2Response));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.MediaItemEvent2Response));
                     break;
 
                 case EventType.PlayerAdded:
@@ -393,7 +393,7 @@ public class MusicAssistantClientWs
                 case EventType.PlayerConfigUpdated:
                     try
                     {
-                        var x = JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerEventResponse);
+                        var x = JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.PlayerEventResponse);
                         _subject.OnNext(x);
                     }
                     catch (Exception ex)
@@ -406,11 +406,11 @@ public class MusicAssistantClientWs
                 case EventType.QueueAdded:
                 case EventType.QueueUpdated:
                 case EventType.QueueItemsUpdated:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueEventResponse));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.PlayerQueueEventResponse));
                     break;
 
                 case EventType.QueueTimeUpdated:
-                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MediaAssistantJsonContext.Default.PlayerQueueTimeUpdatedEventResponse));
+                    _subject.OnNext(JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.PlayerQueueTimeUpdatedEventResponse));
                     break;
 
                 default:
@@ -460,7 +460,7 @@ public class MusicAssistantClientWs
         });
 
         // Use JsonSerializer.Serialize with JsonTypeInfo to avoid RequiresUnreferencedCode warning
-        var json = JsonSerializer.Serialize(auth, MediaAssistantJsonContext.Default.Auth);
+        var json = JsonSerializer.Serialize(auth, MusicAssistantJsonContext.Default.Auth);
         _logger.LogInformation("Sending auth: {Json}", json);
         _client?.Send(json);
     }

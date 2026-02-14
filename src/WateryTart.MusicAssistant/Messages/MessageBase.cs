@@ -12,9 +12,9 @@ public abstract class MessageBase(string command)
     {
         return this switch
         {
-            Message msg => JsonSerializer.Serialize(msg, MediaAssistantJsonContext.Default.Message),
-            Auth auth => JsonSerializer.Serialize(auth, MediaAssistantJsonContext.Default.Auth),
-            _ => JsonSerializer.Serialize(this, MediaAssistantJsonContext.Default.GetTypeInfo(this.GetType())!)
+            Message msg => JsonSerializer.Serialize(msg, MusicAssistantJsonContext.Default.Message),
+            Auth auth => JsonSerializer.Serialize(auth, MusicAssistantJsonContext.Default.Auth),
+            _ => JsonSerializer.Serialize(this, MusicAssistantJsonContext.Default.GetTypeInfo(this.GetType())!)
         };
     }
 }

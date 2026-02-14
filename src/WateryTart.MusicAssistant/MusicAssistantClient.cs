@@ -10,7 +10,7 @@ public class MusicAssistantClient
     /// </summary>
     internal static readonly JsonSerializerOptions SerializerOptions = new()
     {
-        TypeInfoResolver = MediaAssistantJsonContext.Default,
+        TypeInfoResolver = MusicAssistantJsonContext.Default,
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
         PropertyNameCaseInsensitive = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,

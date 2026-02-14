@@ -43,6 +43,8 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(Album))]
 [JsonSerializable(typeof(Item))]
 [JsonSerializable(typeof(MediaItemBase))]
+[JsonSerializable(typeof(StringArrayResponse))]
+
 
 
 
@@ -134,7 +136,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<Provider>))]
 [JsonSerializable(typeof(ResponseBase<string>))]
 [JsonSerializable(typeof(ResponseBase<User>))]
-public partial class MediaAssistantJsonContext : JsonSerializerContext
+public partial class MusicAssistantJsonContext : JsonSerializerContext
 {
 }
 

@@ -23,11 +23,11 @@ public static partial class MusicAssistantClientWsExtensions
         var tcs = new TaskCompletionSource<T>();
         try
         {
-            client.Send<T>(message, (response) =>
+            client.Send<T>(message, (Action<string>)((response) =>
             {
                 try
                 {
-                    var typeInfo = MediaAssistantJsonContext.Default.GetTypeInfo(typeof(T)) as JsonTypeInfo<T>;
+                    var typeInfo = MusicAssistantJsonContext.Default.GetTypeInfo(typeof(T)) as JsonTypeInfo<T>;
                     if (typeInfo == null)
                         return;
 
@@ -40,7 +40,7 @@ public static partial class MusicAssistantClientWsExtensions
                     Console.WriteLine($"Deserialization error: {ex.Message}");
                     tcs.TrySetException(ex);
                 }
-            });
+            }));
         }
         catch (Exception ex)
         {

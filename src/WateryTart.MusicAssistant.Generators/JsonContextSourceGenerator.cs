@@ -41,7 +41,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
                 .ToList();
 
             // Find the MassClientJsonContext class and extract JsonContextInclude attributes
-            var contextClass = allTypes.FirstOrDefault(t => t.Name == "MediaAssistantJsonContext" && 
+            var contextClass = allTypes.FirstOrDefault(t => t.Name == "MusicAssistantJsonContext" && 
                 t.ContainingNamespace.ToDisplayString().Contains("Messages"));
 
             var includedTypes = new List<string>();
@@ -69,7 +69,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
                 return;
 
             var source = GenerateAttributeSource(matchingTypes, includedTypes);
-            context.AddSource("MediaAssistantJsonContext.g.cs", SourceText.From(source, Encoding.UTF8));
+            context.AddSource("MusicAssistantJsonContext.g.cs", SourceText.From(source, Encoding.UTF8));
         }
         catch (Exception ex)
         {
@@ -165,7 +165,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
             sb.AppendLine($"[JsonSerializable(typeof({responseType}))]");
         }
 
-        sb.AppendLine("public partial class MediaAssistantJsonContext : JsonSerializerContext { }");
+        sb.AppendLine("public partial class MusicAssistantJsonContext : JsonSerializerContext { }");
 
         return sb.ToString();
     }

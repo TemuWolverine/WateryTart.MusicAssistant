@@ -2,12 +2,10 @@
 > Disclaimer: This is an unofficial project and is not affiliated with, endorsed by, or associated with the Music Assistant project.
 
 A .NET8/10 client library for accesseing Music Assistant's API  
-
-[![build](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/main.yml/badge.svg)](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/main.yml)
+[![release-please](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml/badge.svg)](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml)
 
 This library does not contain a Sendspin client for playback, for that I recommend [Sendspin.SDK](https://github.com/chrisuthe/windowsSpin/wiki).
 
-[![release-please](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml/badge.svg)](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml)
 
 ## [Changelog](https://github.com/TemuWolverine/WateryTart.MusicAssistant/blob/main/CHANGELOG.md)
 

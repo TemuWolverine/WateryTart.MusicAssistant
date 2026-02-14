@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.6](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.5...v2.2.6) (2026-02-14)
+
+
+### Bug Fixes
+
+* Debug+new variable set ([7435214](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/743521446df3c8d37c9b55e6f88f7eb5a0a87348))
+* removed gaslit by copilot code again ([c5a5fe6](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/c5a5fe6e2c0513d62eaf7f03cf632aeb05ed3842))
+
 ## [2.2.5](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.4...v2.2.5) (2026-02-14)
 
 

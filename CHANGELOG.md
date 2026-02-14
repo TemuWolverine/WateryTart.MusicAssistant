@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.5](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.4...v2.2.5) (2026-02-14)
+
+
+### Bug Fixes
+
+* fixed versioning info in build file for nuget ([89ce1d0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/89ce1d0268dd88bc8d38b99cda775fed06bc4300))
+
 ## [2.2.4](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.3...v2.2.4) (2026-02-14)
 
 

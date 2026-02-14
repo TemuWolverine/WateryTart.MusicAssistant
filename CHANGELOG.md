@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.7](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.6...v2.2.7) (2026-02-14)
+
+
+### Bug Fixes
+
+* Missed permissions on autobuild & correctly ammended nuget push version ([7c32e2f](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/7c32e2fe331270c28fb615f7f604fbdccd2863f4))
+
 ## [2.2.6](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.5...v2.2.6) (2026-02-14)
 
 

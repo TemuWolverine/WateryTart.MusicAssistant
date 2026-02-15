@@ -23,3 +23,4 @@ public enum EventType
     SyncTasksUpdated,
     ApplicationShutdown
 }
+

@@ -125,4 +125,18 @@ public static partial class MusicAssistantClientWsExtensions
 
         return await SendAsync<TempResponse>(c, m);
     }
+
+    public static async Task<TempResponse> SetPlayerQueueRepeatAsync(this MusicAssistantClientWs c, string queueId, RepeatMode mode)
+    {
+        var m = new Message(Commands.PlayerQueuesRepeat)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "repeat_mode", mode },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
 }

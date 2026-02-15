@@ -86,6 +86,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(MusicAssistantCredentials))]
 [JsonSerializable(typeof(User))]
 [JsonSerializable(typeof(EventType))]
+[JsonSerializable(typeof(RepeatMode))]
 [JsonSerializable(typeof(ImageType))]
 [JsonSerializable(typeof(MediaType))]
 [JsonSerializable(typeof(PlaybackState))]

@@ -22,10 +22,11 @@
 		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)..\..\..\CHANGELOG.md"))</PackageReleaseNotes>
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	
-</PropertyGroup>
-	
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+	</PropertyGroup>
 	<PropertyGroup>
+		<IncludeOutputAssemblies>true</IncludeOutputAssemblies>
+		<IncludeReferencedProjects>true</IncludeReferencedProjects>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 	</PropertyGroup>
@@ -52,8 +53,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators.Attributes\WateryTart.MusicAssistant.Generators.Attributes.csproj" />
+		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators.Attributes\WateryTart.MusicAssistant.Generators.Attributes.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>WateryTart.MusicAssistant.Generators.Attributes.dll</IncludeAssets>
+
+		</ProjectReference>
 		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators\WateryTart.MusicAssistant.Generators.csproj"  OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false"  />
 	</ItemGroup>
+
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+		</ItemGroup>
+	</Target>
+	
 </Project>

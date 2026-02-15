@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Generators.Attributes;
-using WateryTart.MusicAssistant.Generators.Attributes;
 using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;

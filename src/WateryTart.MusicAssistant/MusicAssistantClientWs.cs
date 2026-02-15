@@ -50,12 +50,12 @@ public class MusicAssistantClientWs
 
     private IDisposable? _reconnectionSubscription;
 
-    private string _token;
+    private string _token = string.Empty;
 
     /// <summary>
     /// Gets an observable stream of event responses from the server.
     /// </summary>
-    public IObservable<BaseEventResponse> Events => _subject;
+    public Subject<BaseEventResponse> Events => _subject;
 
     /// <summary>
     /// Indicates whether the client is currently connected to the server.

@@ -2,8 +2,6 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -62,9 +60,11 @@ public class NotifyPropertyChangedSourceGenerator : IIncrementalGenerator
                 if (!string.IsNullOrEmpty(ns)) sb.AppendLine(ns); // namespace opening
                 sb.AppendLine($"public partial class {className} : System.ComponentModel.INotifyPropertyChanged");
                 sb.AppendLine("{");
+
+                sb.AppendLine("#nullable enable");
                 sb.AppendLine("    public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;");
                 sb.AppendLine("    protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));");
-
+                sb.AppendLine("#nullable disable");
                 foreach (var prop in props)
                 {
                     // Inside your foreach (var prop in props) loop:
@@ -78,7 +78,8 @@ public class NotifyPropertyChangedSourceGenerator : IIncrementalGenerator
                         .Select(ad => ad.ConstructorArguments.FirstOrDefault().Value as string)
                         .Where(s => !string.IsNullOrEmpty(s))
                         .ToList();
-
+                    if (type.Contains("?"))
+                        sb.AppendLine("#nullable enable");
                     sb.AppendLine($"    private {type} {field};");
                     sb.AppendLine($"    public partial {type} {name}");
                     sb.AppendLine("    {");
@@ -89,7 +90,9 @@ public class NotifyPropertyChangedSourceGenerator : IIncrementalGenerator
                         sb.AppendLine($"            OnPropertyChanged(\"{also}\");");
 
                     sb.AppendLine("        } } }");
-                    //sb.AppendLine("    }");
+
+                    if (type.Contains("?"))
+                        sb.AppendLine("#nullable disable");
                 }
 
                 sb.AppendLine("}"); // class closing

@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.9](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.8...v2.2.9) (2026-02-15)
+
+
+### Features
+
+* Added SetPlayerQueueRepeatAsync(string QueueId, RepeatMode mode). Options are Off, One (single track), All (entire queue) ([c5f87a0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/c5f87a0454222ce5cc6038a783945770f86d2ea6))
+
+
+### Bug Fixes
+
+* Cleaned up some compiler warnings ([fea89a1](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/fea89a150cbb5b8440e7246e2dc17814dc39a20c))
+
 ## [2.2.8](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.7...v2.2.8) (2026-02-14)
 
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.9...v3.0.0) (2026-02-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* Broken nugets should be solved now
+
+### Bug Fixes
+
+* Broken nugets should be solved now ([4c8332b](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/4c8332b82a6af06b54cad932ea33311c4209622c))
+
 ## [2.2.9](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.8...v2.2.9) (2026-02-15)
 
 

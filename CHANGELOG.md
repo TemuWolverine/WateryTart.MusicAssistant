@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.1](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.0.0...v3.0.1) (2026-02-16)
+
+
+### Features
+
+* **Providers:** Added client.&lt;withApi&gt;.GetProviderManifestsAsync() ([f15b559](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/f15b559587b0b8e3be6fce2735958efe79e5642e))
+* **Providers:** Added SvgHelper to extract Svg visual data into a xaml appropriate output given many provider mappings have svgIcon ([3668abc](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/3668abc52f4237797755cbd5e0c14575d2f5da9f))
+* **Providers:** Added SvgHelper to extract Svg visual data into a xaml appropriate output given many provider mappings have svgIcon ([8b5215d](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/8b5215d843b7169565a8855ed3f5bc14dc1205e9))
+
 ## [3.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v2.2.9...v3.0.0) (2026-02-15)
 
 

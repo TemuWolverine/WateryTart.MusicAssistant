@@ -1,5 +1,4 @@
-﻿using WateryTart.MusicAssistant.Models;
-using WateryTart.MusicAssistant.Models.Auth;
+﻿using WateryTart.MusicAssistant.Models.Auth;
 
 namespace WateryTart.MusicAssistant.Responses;
 

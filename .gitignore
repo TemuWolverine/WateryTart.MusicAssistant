@@ -399,3 +399,4 @@ FodyWeavers.xsd
 /_site
 /api
 /src/ClassLibrary1
+src/.cr/

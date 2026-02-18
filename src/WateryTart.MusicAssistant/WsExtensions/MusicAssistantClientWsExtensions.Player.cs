@@ -1,4 +1,5 @@
-﻿using WateryTart.MusicAssistant.Messages;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
+using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
 using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
@@ -107,6 +108,7 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<PlayersQueuesResponse>(c, ClientHelpers.JustId(Commands.PlayerPlayPause, playerId, "player_id"));
     }
 
+    [ToRpc]
     public static async Task<PlayersQueuesResponse> PlayerPreviousAsync(this MusicAssistantClientWs c, string playerId)
     {
         return await SendAsync<PlayersQueuesResponse>(c, ClientHelpers.JustId(Commands.PlayerPrevious, playerId, "player_id"));
@@ -126,6 +128,7 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TempResponse>(c, m);
     }
 
+    [ToRpc]
     public static async Task<TempResponse> SetPlayerQueueRepeatAsync(this MusicAssistantClientWs c, string queueId, RepeatMode mode)
     {
         var m = new Message(Commands.PlayerQueuesRepeat)
@@ -134,6 +137,22 @@ public static partial class MusicAssistantClientWsExtensions
                 {
                     { "queue_id", queueId },
                     { "repeat_mode", mode },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+
+    [ToRpc]
+    public static async Task<TempResponse> SetPlayerQueueShuffleAsync(this MusicAssistantClientWs c, string queueId, bool shuffle_enable)
+    {
+        var m = new Message(Commands.PlayerQueuesShuffle)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "repeat_mode", shuffle_enable },
                 }
         };
 

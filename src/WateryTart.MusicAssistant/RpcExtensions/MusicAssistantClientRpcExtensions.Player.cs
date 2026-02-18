@@ -71,21 +71,8 @@ public static partial class MusicAssistantClientRpcExtensions
                 { { "queue_id", queueId }, { "media", mediaArray }, { "option", modestr } }
         };
 
-        if(radiomode)
+        if (radiomode)
             m.args.Add("radio_mode", true);
-
-        return await c.Send<List<PlayerQueue>>(m);
-    }
-
-    public static async Task<List<PlayerQueue>?> SetPlayerGroupVolumeAsync(
-        this MusicAssistantClientRpc c,
-        string playerId,
-        int volume)
-    {
-        var m = new Message(Commands.PlayerGroupVolume)
-        {
-            args = new Dictionary<string, object>() { { "player_id", playerId }, { "volume_level", volume }, }
-        };
 
         return await c.Send<List<PlayerQueue>>(m);
     }
@@ -140,14 +127,6 @@ public static partial class MusicAssistantClientRpcExtensions
     public static async Task<List<PlayerQueue>?> PlayerPlayPauseAsync(this MusicAssistantClientRpc c, string playerId)
     { return await c.Send<List<PlayerQueue>>(ClientHelpers.JustId(Commands.PlayerPlayPause, playerId, "player_id")); }
 
-    /// <summary>
-    /// Skips to the previous item in the queue for the specified player.
-    /// </summary>
-    /// <param name="playerId">The ID of the player.</param>
-    /// <returns>A list of <see cref="PlayerQueue"/> objects representing the updated queue, or null if the request fails.</returns>
-    public static async Task<List<PlayerQueue>?> PlayerPreviousAsync(this MusicAssistantClientRpc c, string playerId)
-    { return await c.Send<List<PlayerQueue>>(ClientHelpers.JustId(Commands.PlayerPrevious, playerId, "player_id")); }
-
     public static async Task<Task> PlayerSeekAsync(this MusicAssistantClientRpc c, string queueId, int position)
     {
         var m = new Message(Commands.PlayerQueuesSeek)
@@ -158,16 +137,16 @@ public static partial class MusicAssistantClientRpcExtensions
         return c.Send(m);
     }
 
-    public static async Task<Task> SetPlayerQueueRepeatAsync(
-        this MusicAssistantClientRpc c,
-        string queueId,
-        RepeatMode mode)
+    public static async Task<List<PlayerQueue>?> SetPlayerGroupVolumeAsync(
+                                this MusicAssistantClientRpc c,
+        string playerId,
+        int volume)
     {
-        var m = new Message(Commands.PlayerQueuesRepeat)
+        var m = new Message(Commands.PlayerGroupVolume)
         {
-            args = new Dictionary<string, object>() { { "queue_id", queueId }, { "repeat_mode", mode }, }
+            args = new Dictionary<string, object>() { { "player_id", playerId }, { "volume_level", volume }, }
         };
 
-        return c.Send(m);
+        return await c.Send<List<PlayerQueue>>(m);
     }
 }

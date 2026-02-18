@@ -152,7 +152,7 @@ public static partial class MusicAssistantClientWsExtensions
             args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
-                    { "repeat_mode", shuffle_enable },
+                    { "shuffle_enabled", shuffle_enable },
                 }
         };
 

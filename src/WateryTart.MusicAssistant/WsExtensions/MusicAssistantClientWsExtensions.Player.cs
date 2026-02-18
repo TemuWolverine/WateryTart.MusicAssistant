@@ -158,4 +158,19 @@ public static partial class MusicAssistantClientWsExtensions
 
         return await SendAsync<TempResponse>(c, m);
     }
+
+    [ToRpc]
+    public static async Task<TempResponse> SetPlayerQueueDontStopTheMusicAsync(this MusicAssistantClientWs c, string queueId, bool dont_stop_the_music_enabled)
+    {
+        var m = new Message(Commands.PlayerQueuesDontStopTheMusic)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "dont_stop_the_music_enabled", dont_stop_the_music_enabled },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
 }

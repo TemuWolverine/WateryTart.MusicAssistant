@@ -173,4 +173,19 @@ public static partial class MusicAssistantClientWsExtensions
 
         return await SendAsync<TempResponse>(c, m);
     }
+
+    [ToRpc]
+    public static async Task<TempResponse> ClearPlayerQueueAsync(this MusicAssistantClientWs c, string queueId, bool skip_stop = true)
+    {
+        var m = new Message(Commands.PlayerQueuesClear)
+        {
+            args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "skip_stop", skip_stop },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
 }

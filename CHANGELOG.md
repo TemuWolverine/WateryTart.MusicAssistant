@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.1.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.0.1...v3.1.0) (2026-02-19)
+
+
+### Features
+
+* added ClearPlayerQueueAsync which... clears the queue. ([3c15edf](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/3c15edfce3638222ac11c7405bc40d074a7fe051))
+* added SetPlayerQueueDontStopTheMusicAsync ([9057256](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/9057256462c305869d720e965cac1dd6fe859b9a))
+* Added SetPlayerQueueShuffleAsync. Used vibecoding to add a generator. On a Ws extension method, add [ToRpc] and it should generate the matching Rpc extension method ([1c9d6ad](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/1c9d6ada979ee912bef2333f33f189feb231b76d))
+
+
+### Bug Fixes
+
+* corrected shuffle_enabled ([80022a9](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/80022a947728c38b5801ee3f79111fdf328ac1b2))
+
 ## [3.0.1](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.0.0...v3.0.1) (2026-02-16)
 
 

@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using WateryTart.MusicAssistant.Generators.Attributes;
 
 namespace WateryTart.MusicAssistant.Models;
 
-public class PlayerQueue : INotifyPropertyChanged
+[NotifyPropertyChanged]
+public partial class PlayerQueue
 {
-    private long? current_index1;
-    private string? _state;
 
     [JsonPropertyName("queue_id")]
     public string? QueueId { get; set; }
@@ -19,30 +17,27 @@ public class PlayerQueue : INotifyPropertyChanged
     public string? DisplayName { get; set; }
     
     [JsonPropertyName("available")]
-    public bool Available { get; set; }
+    [NotifyingProperty]
+    public partial bool Available { get; set; }
     
     [JsonPropertyName("items")]
     public Int64 Items { get; set; }
     
     [JsonPropertyName("shuffle_enabled")]
-    public bool ShuffleEnabled { get; set; }
+    [NotifyingProperty]
+    public partial bool ShuffleEnabled { get; set; }
     
     [JsonPropertyName("repeat_mode")]
-    public string? RepeatMode { get; set; }
+    [NotifyingProperty]
+    public partial string? RepeatMode { get; set; }
     
     [JsonPropertyName("dont_stop_the_music_enabled")]
-    public bool DontStopTheMusicEnabled { get; set; }
-    
+    [NotifyingProperty]
+    public partial bool DontStopTheMusicEnabled { get; set; }
+
     [JsonPropertyName("current_index")]
-    public Int64? CurrentIndex
-    {
-        get => current_index1;
-        set
-        {
-            current_index1 = value;
-            NotifyPropertyChanged();
-        }
-    }
+    [NotifyingProperty]
+    public partial Int64? CurrentIndex { get; set; }
     
     [JsonPropertyName("index_in_buffer")]
     public Int64? IndexInBuffer { get; set; }
@@ -54,35 +49,10 @@ public class PlayerQueue : INotifyPropertyChanged
     public double? ElapsedTimeLastUpdated { get; set; }
 
     [JsonPropertyName("state")]
-    public string? state
-    {
-        get => _state;
-        set
-        {
-            if (_state != value)
-            {
-                _state = value;
-                NotifyPropertyChanged();
-            }
-        }
-    }
+    [NotifyingProperty]
+    public partial string? State { get; set; }
 
-    private QueuedItem _currentItem;
     [JsonPropertyName("current_item")]
-    public QueuedItem? CurrentItem
-    {
-        get => _currentItem;
-        set
-        {
-            _currentItem = value;
-            NotifyPropertyChanged();
-        }
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-    
-    private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    [NotifyingProperty]
+    public partial QueuedItem? CurrentItem { get; set; }
 }

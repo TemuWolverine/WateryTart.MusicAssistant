@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Generators.Attributes;
+using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 
@@ -29,7 +30,7 @@ public partial class PlayerQueue
     
     [JsonPropertyName("repeat_mode")]
     [NotifyingProperty]
-    public partial string? RepeatMode { get; set; }
+    public partial RepeatMode? RepeatMode { get; set; }
     
     [JsonPropertyName("dont_stop_the_music_enabled")]
     [NotifyingProperty]

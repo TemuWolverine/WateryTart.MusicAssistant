@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.1.0...v4.0.0) (2026-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* PlayerQueue.RepeatMode is now (correctly) an enum rather than just string.
+
+### Features
+
+* added more INPC for values that get pushed via events ([640cda7](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/640cda7c27aa7bfc7f37690e5ca702cd3030b1c3))
+
+
+### Bug Fixes
+
+* PlayerQueue.RepeatMode is now (correctly) an enum rather than just string. ([0aecd3d](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/0aecd3d4c35399bb42f2a84fa9bca1b232b11f48))
+
 ## [3.1.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.0.1...v3.1.0) (2026-02-19)
 
 

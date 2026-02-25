@@ -68,8 +68,8 @@ public static partial class Commands
     public const string MusicRadiosRadioVersions = "music/radios/radio_versions";
 
     // Recently played/added
-    public const string MusicRecentlyAddedTracks = "music/tracks/recently_added";
-    public const string MusicRecentlyPlayedTracks = "music/tracks/recently_played";
+    public const string MusicRecentlyAddedTracks = "music/recently_added_tracks";
+    public const string MusicRecentlyPlayedItems = "music/recently_played_items";
     public const string MusicTracksLibraryItems = "music/tracks/library_items";
 
     // Recommendations & Refresh

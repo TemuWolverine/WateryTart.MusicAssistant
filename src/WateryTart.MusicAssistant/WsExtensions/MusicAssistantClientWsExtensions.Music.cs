@@ -224,7 +224,7 @@ public static partial class MusicAssistantClientWsExtensions
     public static async Task<TracksResponse> GetRecentlyPlayedItemsAsync(this MusicAssistantClientWs c, int limit = 0, string userid = "",
             string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
     {
-        var m = new Message(Commands.MusicRecentlyPlayedTracks)
+        var m = new Message(Commands.MusicRecentlyPlayedItems)
         {
             args = new Dictionary<string, object>()
             {

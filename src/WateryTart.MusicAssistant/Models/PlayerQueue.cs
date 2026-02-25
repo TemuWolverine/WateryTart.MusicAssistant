@@ -12,7 +12,8 @@ public partial class PlayerQueue
     public string? QueueId { get; set; }
     
     [JsonPropertyName("active")]
-    public bool Active { get; set; }
+    [NotifyingProperty]
+    public partial bool Active { get; set; }
     
     [JsonPropertyName("display_name")]
     public string? DisplayName { get; set; }

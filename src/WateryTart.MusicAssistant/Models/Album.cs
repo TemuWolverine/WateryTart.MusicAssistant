@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Converters;
-using WateryTart.MusicAssistant.Models.Enums;
 
 namespace WateryTart.MusicAssistant.Models;
 

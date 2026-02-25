@@ -20,7 +20,7 @@ public partial class Player : IResult
     [NotifyingProperty] public partial CurrentMedia? CurrentMedia { get; set; }
     [JsonPropertyName("device_info")] public DeviceInfo? DeviceInfo { get; set; }
     [JsonPropertyName("display_name")] public string? DisplayName { get; set; }
-    [JsonPropertyName("elapsed_time")] public double? ElapsedTime { get; set; }
+    [NotifyingProperty][JsonPropertyName("elapsed_time")] public partial double? ElapsedTime { get; set; }
     [JsonPropertyName("elapsed_time_last_updated")] public double? ElapsedTimeLastUpdated { get; set; }
     public bool Enabled { get; set; }
     [JsonPropertyName("expose_to_ha")] public bool ExposedToHA { get; set; }
@@ -39,7 +39,7 @@ public partial class Player : IResult
 
     [JsonPropertyName("player_id")] public string? PlayerId { get; set; }
     [JsonPropertyName("power_control")] public string? PowerControl { get; set; }
-    public bool Powered { get; set; }
+    [NotifyingProperty] public partial bool Powered { get; set; }
     public string? Provider { get; set; }
     [JsonPropertyName("source_list")] public List<SourceList>? SourceList { get; set; }
     public string? state { get; set; }
@@ -52,5 +52,5 @@ public partial class Player : IResult
     [NotifyingProperty]
     public partial int? VolumeLevel { get; set; }
 
-    [JsonPropertyName("volume_muted")] public bool? VolumeMuted { get; set; }
+    [JsonPropertyName("volume_muted")][NotifyingProperty] public partial bool? VolumeMuted { get; set; }
 }

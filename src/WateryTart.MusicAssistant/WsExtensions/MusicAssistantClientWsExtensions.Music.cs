@@ -218,13 +218,13 @@ public static partial class MusicAssistantClientWsExtensions
 
     public static async Task<TracksResponse> GetRecentlyAddedTracksAsync(this MusicAssistantClientWs c, int limit = 0)
     {
-        return await SendAsync<TracksResponse>(c, ClientHelpers.JustId(Commands.MusicRecentlyAdded, "limit", limit.ToString()));
+        return await SendAsync<TracksResponse>(c, ClientHelpers.JustId(Commands.MusicRecentlyAddedTracks, "limit", limit.ToString()));
     }
 
     public static async Task<TracksResponse> GetRecentlyPlayedItemsAsync(this MusicAssistantClientWs c, int limit = 0, string userid = "",
             string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
     {
-        var m = new Message(Commands.MusicRecentlyPlayed)
+        var m = new Message(Commands.MusicRecentlyPlayedItems)
         {
             args = new Dictionary<string, object>()
             {

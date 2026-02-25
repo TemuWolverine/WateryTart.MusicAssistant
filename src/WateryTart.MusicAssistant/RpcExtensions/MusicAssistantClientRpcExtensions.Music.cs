@@ -216,15 +216,15 @@ public static partial class MusicAssistantClientRpcExtensions
         return await c.Send<int>(ClientHelpers.JustId(Commands.MusicRadiosCount, "false", "favorite_only"));
     }
 
-    public static async Task<List<Item>?> GetRecentlyAddedAsync(this MusicAssistantClientRpc c, int limit = 0)
+    public static async Task<List<Item>?> GetRecentlyAddedTracksAsync(this MusicAssistantClientRpc c, int limit = 0)
     {
-        return await c.Send<List<Item>?>(ClientHelpers.JustId(Commands.MusicRecentlyAdded, "limit", limit.ToString()));
+        return await c.Send<List<Item>?>(ClientHelpers.JustId(Commands.MusicRecentlyAddedTracks, "limit", limit.ToString()));
     }
 
-    public static async Task<List<Item>?> GetRecentlyPlayedAsync(this MusicAssistantClientRpc c, int limit = 0, string userid = "",
+    public static async Task<List<Item>?> GetRecentlyPlayedItemsAsync(this MusicAssistantClientRpc c, int limit = 0, string userid = "",
             string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
     {
-        var m = new Message(Commands.MusicRecentlyPlayed)
+        var m = new Message(Commands.MusicRecentlyPlayedItems)
         {
             args = new Dictionary<string, object>()
             {

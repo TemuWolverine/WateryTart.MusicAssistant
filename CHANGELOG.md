@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.0.0...v4.0.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* Added more [NotifyingProperty]'s to properties likely to be changed during a stream ([c1da4f9](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/c1da4f938978274fe9be0ee0accb445cbd47ddbe))
+
 ## [4.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v3.1.0...v4.0.0) (2026-02-24)
 
 

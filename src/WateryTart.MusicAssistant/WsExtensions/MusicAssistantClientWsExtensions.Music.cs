@@ -89,7 +89,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
-    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null)
+    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null)
     {
         var m = new Message(Commands.MusicAlbumLibraryItems)
         {
@@ -104,6 +104,8 @@ public static partial class MusicAssistantClientWsExtensions
         {
             m.args["offset"] = offset.Value.ToString();
         }
+        if (!string.IsNullOrEmpty(order_by))
+            m.args["order_by"] = order_by;
 
         return await SendAsync<AlbumsResponse>(c, m);
     }

@@ -1,4 +1,5 @@
-﻿using WateryTart.MusicAssistant.Messages;
+﻿using System.Reflection.Metadata;
+using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WsExtensions;
@@ -10,9 +11,32 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<ArtistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicArtistGet, artistId, providerInstanceIdOrDomain));
     }
 
-    public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c)
+    public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, bool favourite = false, string? search = null, int? limit = null, int? offset = null, string? order_by = null, bool album_artists_only = false)
     {
-        return await SendAsync<ArtistsResponse>(c, ClientHelpers.JustCommand(Commands.MusicArtistsGet));
+        var args = new Dictionary<string, object>()
+        {
+            { "favorite", favourite },
+            { "album_artists_only", album_artists_only }
+        };
+
+        if (!string.IsNullOrEmpty(search))
+            args.Add("search", search);
+
+        if (!string.IsNullOrEmpty(order_by))
+            args.Add("order_by", order_by);
+
+        if (limit != null)
+            args.Add("limit", limit);
+
+        if (offset != null)
+            args.Add("offset", offset);
+
+        var m = new Message(Commands.MusicArtistsGet)
+        {
+            args = args
+        };
+
+        return await SendAsync<ArtistsResponse>(c, m);
     }
 
     public static async Task<AlbumsResponse> GetArtistAlbumsAsync(this MusicAssistantClientWs c, string artistId, string providerInstanceIdOrDomain)

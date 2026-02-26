@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.1.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.0.1...v4.1.0) (2026-02-26)
+
+
+### Features
+
+* Fleshed out GetArtistsAsync ([2535026](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/25350262a4bad0ac460c5a714bf66ef18a8fc6a7))
+
+
+### Bug Fixes
+
+* corrected Recently Added/Played track urls ([451d3be](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/451d3bef7560b7036d0c312346e91a8bd0e9aca6))
+* Corrected recently played/added commands ([f36565a](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/f36565a3c04af030f61a59f107b773e986501954))
+
 ## [4.0.1](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.0.0...v4.0.1) (2026-02-25)
 
 

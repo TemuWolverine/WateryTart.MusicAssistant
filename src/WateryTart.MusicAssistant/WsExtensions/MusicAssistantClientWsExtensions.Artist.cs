@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
@@ -7,6 +7,7 @@ namespace WateryTart.MusicAssistant.WsExtensions;
 
 public static partial class MusicAssistantClientWsExtensions
 {
+    
     public static async Task<ArtistResponse> GetArtistAsync(this MusicAssistantClientWs c, string artistId, string providerInstanceIdOrDomain)
     {
         return await SendAsync<ArtistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicArtistGet, artistId, providerInstanceIdOrDomain));
@@ -23,6 +24,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="album_artists_only"></param>
     /// <param name="order">Use this or order_by, not both.</param>
     /// <returns></returns>
+    [ToRpc]
     public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, bool favourite = false, string? search = null, int? limit = null, int? offset = null, string? order_by = null, bool album_artists_only = false, OrderBy order = OrderBy.Unknown)
     {
         var args = new Dictionary<string, object>()

@@ -1,4 +1,5 @@
-﻿using WateryTart.MusicAssistant.Messages;
+﻿using WateryTart.MusicAssistant.Generators.Attributes;
+using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
 using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
@@ -89,7 +90,8 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
-    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null)
+    [ToRpc]
+    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown)
     {
         var m = new Message(Commands.MusicAlbumLibraryItems)
         {
@@ -106,6 +108,9 @@ public static partial class MusicAssistantClientWsExtensions
         }
         if (!string.IsNullOrEmpty(order_by))
             m.args["order_by"] = order_by;
+
+        if (string.IsNullOrEmpty(order_by) && order != OrderBy.Unknown)
+            m.args["order_by"] = order;
 
         return await SendAsync<AlbumsResponse>(c, m);
     }
@@ -158,7 +163,8 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>A <see cref="PlaylistsResponse"/> containing the playlists.</returns>
-    public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null)
+    [ToRpc]
+    public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? search=null, OrderBy orderby = OrderBy.Unknown)
     {
         var m = new Message(Commands.MusicPlaylistsLibraryItems)
         {
@@ -176,7 +182,14 @@ public static partial class MusicAssistantClientWsExtensions
         {
             m.args["offset"] = offset.Value.ToString();
         }
-
+        if (!string.IsNullOrEmpty(search))
+        {
+            m.args["search"] = search;
+        }
+        if (orderby != OrderBy.Unknown)
+        {
+            m.args["order_by"] = orderby;
+        }
         return await SendAsync<PlaylistsResponse>(c, m);
     }
 
@@ -281,7 +294,8 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>A <see cref="TracksResponse"/> containing the tracks.</returns>
-    public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null)
+    [ToRpc]
+    public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, OrderBy order = OrderBy.Unknown, string? search = null)
     {
         var m = new Message(Commands.MusicTracksLibraryItems)
         {
@@ -298,6 +312,13 @@ public static partial class MusicAssistantClientWsExtensions
         {
             m.args["offset"] = offset.Value.ToString();
         }
+
+        if (!string.IsNullOrEmpty(search))
+            m.args.Add("search", search);
+
+        if (order != OrderBy.Unknown)
+            m.args.Add("order_by", order);
+
         return await SendAsync<TracksResponse>(c, m);
     }
 

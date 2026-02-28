@@ -84,31 +84,6 @@ public static partial class MusicAssistantClientRpcExtensions
     }
 
     /// <summary>
-    /// Retrieves a list of album library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>An <see cref="ListAlbum"/> containing the albums.</returns>
-    public static async Task<List<Album>?> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientRpc c, int? limit = null, int? offset = null)
-    {
-        var m = new Message(Commands.MusicAlbumLibraryItems)
-        {
-            args = new Dictionary<string, object>()
-        };
-
-        if (limit.HasValue)
-        {
-            m.args["limit"] = limit.Value.ToString();
-        }
-        if (offset.HasValue)
-        {
-            m.args["offset"] = offset.Value.ToString();
-        }
-
-        return await c.Send<List<Album>?>(m);
-    }
-
-    /// <summary>
     /// Retrieves the tracks for a specific album and provider.
     /// </summary>
     /// <param name="id">The album ID.</param>
@@ -148,34 +123,6 @@ public static partial class MusicAssistantClientRpcExtensions
     public static async Task<Playlist?> GetPlaylistAsync(this MusicAssistantClientRpc c, string playlistId, string providerInstanceIdOrDomain)
     {
         return await c.Send<Playlist?>(ClientHelpers.IdAndProvider(Commands.MusicPlaylistsGet, playlistId, providerInstanceIdOrDomain));
-    }
-
-    /// <summary>
-    /// Retrieves a list of playlist library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>A <see cref="List<Playlist>"/> containing the playlists.</returns>
-    public static async Task<List<Playlist>?> GetPlaylistsAsync(this MusicAssistantClientRpc c, int? limit = null, int? offset = null)
-    {
-        var m = new Message(Commands.MusicPlaylistsLibraryItems)
-        {
-            args = new Dictionary<string, object>()
-                {
-                    { "favorite_only", "false" },
-                }
-        };
-
-        if (limit.HasValue)
-        {
-            m.args["limit"] = limit.Value.ToString();
-        }
-        if (offset.HasValue)
-        {
-            m.args["offset"] = offset.Value.ToString();
-        }
-
-        return await c.Send<List<Playlist>?>(m);
     }
 
     /// <summary>
@@ -271,32 +218,6 @@ public static partial class MusicAssistantClientRpcExtensions
     public static async Task<int> GetTrackCountAsync(this MusicAssistantClientRpc c)
     {
         return await c.Send<int>(ClientHelpers.JustId(Commands.MusicTracksCount, "false", "favourite_only"));
-    }
-
-    /// <summary>
-    /// Retrieves a list of track library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>A <see cref="List<Item>"/> containing the tracks.</returns>
-    public static async Task<List<Item>?> GetTracksAsync(this MusicAssistantClientRpc c, int? limit = null, int? offset = null)
-    {
-        var m = new Message(Commands.MusicTracksLibraryItems)
-        {
-            args = new Dictionary<string, object>()
-                {
-                    { "favorite_only", "false" },
-                }
-        };
-        if (limit.HasValue)
-        {
-            m.args["limit"] = limit.Value.ToString();
-        }
-        if (offset.HasValue)
-        {
-            m.args["offset"] = offset.Value.ToString();
-        }
-        return await c.Send<List<Item>?>(m);
     }
 
     public static async Task<Task> AddFavoriteItemAsync(this MusicAssistantClientRpc c, MediaItemBase t)

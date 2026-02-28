@@ -55,7 +55,7 @@ public class MusicAssistantClientWs
     /// <summary>
     /// Gets an observable stream of event responses from the server.
     /// </summary>
-    public Subject<BaseEventResponse> Events => _subject;
+    public Subject<BaseEventResponse?> Events => _subject;
 
     /// <summary>
     /// Indicates whether the client is currently connected to the server.

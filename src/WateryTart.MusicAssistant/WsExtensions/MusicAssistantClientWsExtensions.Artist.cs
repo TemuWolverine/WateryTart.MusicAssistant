@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Metadata;
 using WateryTart.MusicAssistant.Messages;
+using WateryTart.MusicAssistant.Models.Enums;
 using WateryTart.MusicAssistant.Responses;
 
 namespace WateryTart.MusicAssistant.WsExtensions;
@@ -10,8 +11,19 @@ public static partial class MusicAssistantClientWsExtensions
     {
         return await SendAsync<ArtistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicArtistGet, artistId, providerInstanceIdOrDomain));
     }
-
-    public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, bool favourite = false, string? search = null, int? limit = null, int? offset = null, string? order_by = null, bool album_artists_only = false)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="c"></param>
+    /// <param name="favourite"></param>
+    /// <param name="search"></param>
+    /// <param name="limit"></param>
+    /// <param name="offset"></param>
+    /// <param name="order_by"></param>
+    /// <param name="album_artists_only"></param>
+    /// <param name="order">Use this or order_by, not both.</param>
+    /// <returns></returns>
+    public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, bool favourite = false, string? search = null, int? limit = null, int? offset = null, string? order_by = null, bool album_artists_only = false, OrderBy order = OrderBy.Unknown)
     {
         var args = new Dictionary<string, object>()
         {
@@ -24,6 +36,9 @@ public static partial class MusicAssistantClientWsExtensions
 
         if (!string.IsNullOrEmpty(order_by))
             args.Add("order_by", order_by);
+
+        if (string.IsNullOrEmpty(order_by) && order != OrderBy.Unknown)
+            args.Add("order_by", order);
 
         if (limit != null)
             args.Add("limit", limit);

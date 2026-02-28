@@ -28,15 +28,6 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
             var (compilation, methodDecls) = source;
             var toRpcAttrFqn = "WateryTart.MusicAssistant.Generators.Attributes.ToRpcAttribute";
 
-            // Diagnostic descriptor for debug/info reporting
-            var infoDescriptor = new DiagnosticDescriptor(
-                id: "WSPG001",
-                title: "WsToRpc Source Generator",
-                messageFormat: "{0}",
-                category: "SourceGenerator",
-                defaultSeverity: DiagnosticSeverity.Info,
-                isEnabledByDefault: true);
-
             // Group generated methods by target rpc class so we can emit 'using' and namespace only once.
             var methodsByClass = new Dictionary<string, List<string>>(StringComparer.Ordinal);
 
@@ -147,9 +138,8 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                         responseTypeSymbol = tSym;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    spc.ReportDiagnostic(Diagnostic.Create(infoDescriptor, Location.None, $"Error resolving response type for {methodSymbol.Name}: {ex.Message}"));
                 }
 
                 // Determine inner type to use for RPC Send:
@@ -239,8 +229,15 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 else
                     newBodyText = rewrittenBody;
 
-                    // build single method block
+                // build single method block
                 var methodSb = new StringBuilder();
+
+                // Detect if the generated return is nullable and wrap method with #nullable directives if so.
+                bool isReturnNullable = generatedReturn.Contains("?");
+
+                if (isReturnNullable)
+                    methodSb.AppendLine("#nullable enable");
+
                 methodSb.AppendLine($"        {modifiers} {generatedReturn} {methodName}{typeParams}{paramListText}");
                 methodSb.AppendLine("        {");
                 foreach (var line in newBodyText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
@@ -248,6 +245,10 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                     methodSb.AppendLine("            " + line.TrimEnd());
                 }
                 methodSb.AppendLine("        }");
+
+                if (isReturnNullable)
+                    methodSb.AppendLine("#nullable disable");
+
                 var methodBlock = methodSb.ToString();
 
                 // store method text under rpcClassName

@@ -91,12 +91,15 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
     [ToRpc]
-    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown)
+    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown, bool favouriteOnly = false)
     {
         var m = new Message(Commands.MusicAlbumLibraryItems)
         {
             args = new Dictionary<string, object>()
         };
+
+        if (favouriteOnly)
+            m.args["favorite"] = true;
 
         if (limit.HasValue)
         {
@@ -164,13 +167,13 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>A <see cref="PlaylistsResponse"/> containing the playlists.</returns>
     [ToRpc]
-    public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? search=null, OrderBy orderby = OrderBy.Unknown)
+    public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? search=null, OrderBy orderby = OrderBy.Unknown, bool favourite = false)
     {
         var m = new Message(Commands.MusicPlaylistsLibraryItems)
         {
             args = new Dictionary<string, object>()
                 {
-                    { "favorite_only", "false" },
+                    { "favorite_only", favourite },
                 }
         };
 
@@ -295,13 +298,13 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="offset">Number of items to skip.</param>
     /// <returns>A <see cref="TracksResponse"/> containing the tracks.</returns>
     [ToRpc]
-    public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, OrderBy order = OrderBy.Unknown, string? search = null)
+    public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, OrderBy order = OrderBy.Unknown, string? search = null, bool favourite = false)
     {
         var m = new Message(Commands.MusicTracksLibraryItems)
         {
             args = new Dictionary<string, object>()
                 {
-                    { "favorite_only", "false" },
+                    { "favorite_only", favourite },
                 }
         };
         if (limit.HasValue)

@@ -22,11 +22,13 @@ public enum OrderBy
 
     [Description("Timestamp Added")]
     timestamp_added,
+
     [Description("Timestamp Added (Desc)")]
     timestamp_added_desc,
 
     [Description("Last Played")]
     last_played,
+
     [Description("Last Played (Desc)")]
     last_played_desc,
 

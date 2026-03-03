@@ -8,8 +8,6 @@ namespace WateryTart.MusicAssistant.WsExtensions;
 
 public static partial class MusicAssistantClientWsExtensions
 {
-    /*MusicAssistantClientWs*/
-
     public static async Task<PlayerQueueResponse> GetPlayerActiveQueueAsync(this MusicAssistantClientWs c, string id)
     {
         return await SendAsync<PlayerQueueResponse>(c, ClientHelpers.JustId(Commands.PlayerActiveQueue, id, "player_id"));

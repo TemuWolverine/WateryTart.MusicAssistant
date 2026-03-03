@@ -229,6 +229,9 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 else
                     newBodyText = rewrittenBody;
 
+                // Extract XML documentation comments from the original method
+                var xmlDocText = ExtractXmlDocumentationFromSyntax(methodDecl);
+
                 // build single method block
                 var methodSb = new StringBuilder();
 
@@ -237,6 +240,16 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
 
                 if (isReturnNullable)
                     methodSb.AppendLine("#nullable enable");
+
+                // Add XML documentation if present
+                if (!string.IsNullOrWhiteSpace(xmlDocText))
+                {
+                    foreach (var line in xmlDocText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (!string.IsNullOrWhiteSpace(line))
+                            methodSb.AppendLine("        " + line.TrimEnd());
+                    }
+                }
 
                 methodSb.AppendLine($"        {modifiers} {generatedReturn} {methodName}{typeParams}{paramListText}");
                 methodSb.AppendLine("        {");
@@ -294,5 +307,52 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 spc.AddSource("WsToRpc_generated.g.cs", SourceText.From(outSb.ToString(), Encoding.UTF8));
             }
         });
+    }
+
+    private static string ExtractXmlDocumentationFromSyntax(MethodDeclarationSyntax methodDecl)
+    {
+        var sb = new StringBuilder();
+
+        // First try: get trivia from the first attribute (captures docs before [ToRpc])
+        if (methodDecl.AttributeLists.Count > 0)
+        {
+            var firstAttrList = methodDecl.AttributeLists[0];
+            foreach (var trivia in firstAttrList.GetLeadingTrivia())
+            {
+                if (trivia.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+                    trivia.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia))
+                {
+                    AppendDocLines(sb, trivia.ToFullString());
+                }
+            }
+        }
+
+        // Fallback: check method's own leading trivia (captures docs after attributes)
+        if (sb.Length == 0)
+        {
+            foreach (var trivia in methodDecl.GetLeadingTrivia())
+            {
+                if (trivia.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+                    trivia.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia))
+                {
+                    AppendDocLines(sb, trivia.ToFullString());
+                }
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    private static void AppendDocLines(StringBuilder sb, string docText)
+    {
+        var lines = docText.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        foreach (var line in lines)
+        {
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                sb.Append("        ");
+                sb.AppendLine(line.TrimStart());
+            }
+        }
     }
 }

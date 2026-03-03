@@ -27,34 +27,6 @@ public static partial class MusicAssistantClientRpcExtensions
     }
 
     /// <summary>
-    /// Retrieves a list of artist library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>An <see cref="List<Artist>"/> containing the artists.</returns>
-    public static async Task<List<Artist>?> GetArtistsAsync(this MusicAssistantClientRpc c, int? limit = null, int? offset = null)
-    {
-        var m = new Message(Commands.MusicArtistsGet)
-        {
-            args = new Dictionary<string, object>()
-                {
-                    { "favorite_only", "false" },
-                }
-        };
-
-        if (limit.HasValue)
-        {
-            m.args["limit"] = limit.Value.ToString();
-        }
-        if (offset.HasValue)
-        {
-            m.args["offset"] = offset.Value.ToString();
-        }
-
-        return await c.Send<List<Artist>?>(m);
-    }
-
-    /// <summary>
     /// Retrieves the count of audiobooks, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="int"/> containing the audiobook count.</returns>

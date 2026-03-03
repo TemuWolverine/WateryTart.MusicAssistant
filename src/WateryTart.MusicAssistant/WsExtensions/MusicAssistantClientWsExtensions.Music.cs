@@ -28,34 +28,6 @@ public static partial class MusicAssistantClientWsExtensions
     }
 
     /// <summary>
-    /// Retrieves a list of artist library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>An <see cref="ArtistsResponse"/> containing the artists.</returns>
-    public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null)
-    {
-        var m = new Message(Commands.MusicArtistsGet)
-        {
-            args = new Dictionary<string, object>()
-                {
-                    { "favorite_only", "false" },
-                }
-        };
-
-        if (limit.HasValue)
-        {
-            m.args["limit"] = limit.Value.ToString();
-        }
-        if (offset.HasValue)
-        {
-            m.args["offset"] = offset.Value.ToString();
-        }
-
-        return await SendAsync<ArtistsResponse>(c, m);
-    }
-
-    /// <summary>
     /// Retrieves the count of audiobooks, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the audiobook count.</returns>
@@ -84,13 +56,16 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<AlbumResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumGet, id, providerInstanceIdOrDomain));
     }
 
+    [ToRpc]
     /// <summary>
     /// Retrieves a list of album library items, with optional pagination.
     /// </summary>
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
+    /// <param name="order_by">Optional custom ordering field.</param>
+    /// <param name="order">Predefined sort order. Ignored if <paramref name="order_by"/> is specified.</param>
+    /// <param name="favouriteOnly">If <c>true</c>, returns only favorite albums. Default is <c>false</c>.</param>
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
-    [ToRpc]
     public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown, bool favouriteOnly = false)
     {
         var m = new Message(Commands.MusicAlbumLibraryItems)
@@ -160,13 +135,16 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<PlaylistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicPlaylistsGet, playlistId, providerInstanceIdOrDomain));
     }
 
+    [ToRpc]
     /// <summary>
-    /// Retrieves a list of playlist library items, with optional pagination.
+    /// Retrieves a list of playlist library items, with optional pagination and filtering.
     /// </summary>
     /// <param name="limit">Maximum number of items to return.</param>
     /// <param name="offset">Number of items to skip.</param>
+    /// <param name="search">Optional search query to filter playlists by name.</param>
+    /// <param name="orderby">Predefined sort order.</param>
+    /// <param name="favourite">If <c>true</c>, returns only favorite playlists. Default is <c>false</c>.</param>
     /// <returns>A <see cref="PlaylistsResponse"/> containing the playlists.</returns>
-    [ToRpc]
     public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? search=null, OrderBy orderby = OrderBy.Unknown, bool favourite = false)
     {
         var m = new Message(Commands.MusicPlaylistsLibraryItems)
@@ -234,11 +212,25 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicRadiosCount, "false", "favorite_only"));
     }
 
+    /// <summary>
+    /// Retrieves recently added tracks from the library.
+    /// </summary>
+    /// <param name="limit">Maximum number of tracks to return. Default is 0 (no limit).</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the recently added tracks.</returns>
     public static async Task<TracksResponse> GetRecentlyAddedTracksAsync(this MusicAssistantClientWs c, int limit = 0)
     {
         return await SendAsync<TracksResponse>(c, ClientHelpers.JustId(Commands.MusicRecentlyAddedTracks, "limit", limit.ToString()));
     }
 
+    /// <summary>
+    /// Retrieves recently played items from the library with optional filtering.
+    /// </summary>
+    /// <param name="limit">Maximum number of items to return. Default is 0 (no limit).</param>
+    /// <param name="userid">Optional user ID to filter by.</param>
+    /// <param name="queueid">Optional queue ID to filter by.</param>
+    /// <param name="fullyPlayedOnly">If <c>true</c>, returns only fully played items. Default is <c>false</c>.</param>
+    /// <param name="userInitiatedOnly">If <c>true</c>, returns only user-initiated plays. Default is <c>false</c>.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the recently played items.</returns>
     public static async Task<TracksResponse> GetRecentlyPlayedItemsAsync(this MusicAssistantClientWs c, int limit = 0, string userid = "",
             string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
     {
@@ -291,13 +283,16 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicTracksCount, "false", "favourite_only"));
     }
 
-    /// <summary>
-    /// Retrieves a list of track library items, with optional pagination.
-    /// </summary>
-    /// <param name="limit">Maximum number of items to return.</param>
-    /// <param name="offset">Number of items to skip.</param>
-    /// <returns>A <see cref="TracksResponse"/> containing the tracks.</returns>
     [ToRpc]
+    /// <summary>
+    /// Retrieves a list of track library items with optional pagination, sorting, and filtering.
+    /// </summary>
+    /// <param name="limit">Maximum number of tracks to return.</param>
+    /// <param name="offset">Number of tracks to skip (for pagination).</param>
+    /// <param name="order">Predefined sort order.</param>
+    /// <param name="search">Optional search query to filter tracks by name.</param>
+    /// <param name="favourite">If <c>true</c>, returns only favorite tracks. Default is <c>false</c>.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the tracks.</returns>
     public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, OrderBy order = OrderBy.Unknown, string? search = null, bool favourite = false)
     {
         var m = new Message(Commands.MusicTracksLibraryItems)
@@ -325,6 +320,11 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TracksResponse>(c, m);
     }
 
+    /// <summary>
+    /// Adds a media item to the user's favorites.
+    /// </summary>
+    /// <param name="t">The media item to add to favorites.</param>
+    /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
     public static async Task<TempResponse> AddFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
     {
         var m = new Message(Commands.MusicFavouritesAddItem)
@@ -337,6 +337,11 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TempResponse>(c, m);
     }
 
+    /// <summary>
+    /// Removes a media item from the user's favorites.
+    /// </summary>
+    /// <param name="t">The media item to remove from favorites.</param>
+    /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
     public static async Task<TempResponse> RemoveFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
     {
         var m = new Message(Commands.MusicFavouritesRemoveItem)
@@ -350,6 +355,13 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TempResponse>(c, m);
     }
 
+    /// <summary>
+    /// Retrieves a specific library item by media type, item ID, and provider.
+    /// </summary>
+    /// <param name="type">The type of media item (e.g., track, album, artist).</param>
+    /// <param name="itemId">The unique identifier of the item.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain hosting the item.</param>
+    /// <returns>An <see cref="ItemResponse"/> containing the library item details.</returns>
     public static async Task<ItemResponse> GetLibraryItemAsync(this MusicAssistantClientWs c, MediaType type, string itemId, string providerInstanceIdOrDomain)
     {
         var m = new Message(Commands.MusicGetLibraryItem)

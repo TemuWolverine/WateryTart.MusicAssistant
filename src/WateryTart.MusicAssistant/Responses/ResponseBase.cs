@@ -5,7 +5,7 @@ namespace WateryTart.MusicAssistant.Responses;
 public abstract class ResponseBase<T>
 {
     [JsonPropertyName("message_id")]
-    public string? message_id { get; set; }
+    public string? MessageId { get; set; }
 
     [JsonPropertyName("partial")]
     public bool Partial { get; set; }

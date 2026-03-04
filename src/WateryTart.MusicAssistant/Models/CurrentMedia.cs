@@ -52,5 +52,5 @@ public partial class CurrentMedia
     }
 
     [JsonPropertyName("elapsed_time_last_updated")]
-    public double? elapsed_time_last_updated { get; set; }
+    public double? ElapsedTimeLastUpdated { get; set; }
 }

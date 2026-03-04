@@ -42,7 +42,7 @@ public partial class Player : IResult
     [NotifyingProperty] public partial bool Powered { get; set; }
     public string? Provider { get; set; }
     [JsonPropertyName("source_list")] public List<SourceList>? SourceList { get; set; }
-    public string? state { get; set; }
+    [JsonPropertyName("state")] public string? State { get; set; }
     [JsonPropertyName("supported_features")] public List<string>? SupportedFeatures { get; set; }
     [JsonPropertyName("synced_to")] public object? SyncedTo { get; set; }
     public string? Type { get; set; }

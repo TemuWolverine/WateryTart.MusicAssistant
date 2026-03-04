@@ -7,7 +7,7 @@ public class BaseEventResponse
 {
     [JsonPropertyName("event")] public EventType EventName { get; set; }
     
-    [JsonPropertyName("object_id")] public string? object_id { get; set; }
+    [JsonPropertyName("object_id")] public string? ObjectId { get; set; }
     
-    [JsonPropertyName("data")] public object? data { get; set; }
+    [JsonPropertyName("data")] public object? Data { get; set; }
 }

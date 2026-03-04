@@ -29,10 +29,10 @@ namespace WateryTart.MusicAssistant.Models.Auth
         public UserPreferences? Preferences { get; set; }
 
         [JsonPropertyName("provider_filter")]
-        public List<object> ProviderFilter { get; set; } = new List<object>();
+        public List<object> ProviderFilter { get; set; } = [];
 
         [JsonPropertyName("player_filter")]
-        public List<object> PlayerFilter { get; set; } = new List<object>();
+        public List<object> PlayerFilter { get; set; } = [];
     }
 
 

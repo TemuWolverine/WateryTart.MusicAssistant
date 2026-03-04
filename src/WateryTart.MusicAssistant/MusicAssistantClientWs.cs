@@ -22,11 +22,15 @@ public class MusicAssistantClientWs
     /// </summary>
     internal ConcurrentDictionary<string, Action<string>> _routing = new();
 
-    private readonly object _authLock = new object();
+#pragma warning disable IDE0330 // Use 'System.Threading.Lock'
+    private readonly object _authLock = new();
+#pragma warning restore IDE0330 // Use 'System.Threading.Lock'
 
     private string _baseurl;
 
-    private readonly object _connectLock = new object();
+#pragma warning disable IDE0330 // Use 'System.Threading.Lock'
+    private readonly object _connectLock = new();
+#pragma warning restore IDE0330 // Use 'System.Threading.Lock'
 
     private readonly Queue<string> _pendingMessages = new();
 
@@ -37,9 +41,9 @@ public class MusicAssistantClientWs
     /// <summary>
     /// Subject for publishing event responses to observers.
     /// </summary>
-    private readonly Subject<BaseEventResponse?> _subject = new Subject<BaseEventResponse?>();
+    private readonly Subject<BaseEventResponse?> _subject = new();
 
-    private CancellationTokenSource _connectionCts = new CancellationTokenSource();
+    private CancellationTokenSource _connectionCts = new();
 
     // Track if we're already attempting to connect
     private Task _currentConnectTask = Task.CompletedTask;
@@ -235,7 +239,7 @@ public class MusicAssistantClientWs
     /// <returns>A <see cref="LoginResults"/> object indicating success or failure and containing credentials if successful.</returns>
     public async Task<LoginResults> GetAuthToken(string username, string password)
     {
-        MusicAssistantCredentials mc = new MusicAssistantCredentials();
+        MusicAssistantCredentials mc = new();
 
         var factory = new Func<ClientWebSocket>(() => new ClientWebSocket
         {
@@ -307,7 +311,7 @@ public class MusicAssistantClientWs
     public void Send<T>(MessageBase message, Action<string> responseHandler, bool ignoreConnection = false)
     {
         var json = message.ToJson();
-        _routing.TryAdd(message.message_id, responseHandler);  // Changed from Add
+        _routing.TryAdd(message.MessageId, responseHandler);  // Changed from Add
 
         if (!ignoreConnection && (_client == null || !_client.IsRunning))
         {
@@ -360,7 +364,7 @@ public class MusicAssistantClientWs
         TempResponse? y = JsonSerializer.Deserialize(response.Text, MusicAssistantJsonContext.Default.TempResponse);
 
         // Use TryRemove instead of ContainsKey + indexer
-        if (y?.message_id != null && _routing.TryRemove(y.message_id, out var handler))
+        if (y?.MessageId != null && _routing.TryRemove(y.MessageId, out var handler))
         {
             handler?.Invoke(response.Text);
             return;
@@ -432,14 +436,14 @@ public class MusicAssistantClientWs
     private void SendLogin(string token)
     {
         _logger.LogInformation("Sending authentication...");
-        var argsx = new Dictionary<string, object>() { { "token", token } };
+        var Argsx = new Dictionary<string, object>() { { "token", token } };
         var auth = new Auth()
         {
-            message_id = "auth-" + Guid.NewGuid(),
-            args = argsx
+            MessageId = "auth-" + Guid.NewGuid(),
+            Args = Argsx
         };
 
-        _routing.TryAdd(auth.message_id, (response) =>
+        _routing.TryAdd(auth.MessageId, (response) =>
         {
             _logger.LogInformation("Auth response: {Response}", response);
 

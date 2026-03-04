@@ -16,7 +16,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicAlbumsCount)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "favorite_only", favouriteOnly },
                     { "album_types", "[\"album\", \"single\", \"live\", \"soundtrack\", \"compilation\", \"ep\", \"unknown\"]" }
@@ -145,7 +145,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicRecentlyPlayedItems)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "limit", limit},
                 {"fully_played_only", fullyPlayedOnly},
@@ -154,9 +154,9 @@ public static partial class MusicAssistantClientRpcExtensions
         };
 
         if (!string.IsNullOrEmpty(userid))
-            m.args["user_id"] = userid;
+            m.Args["user_id"] = userid;
         if (!string.IsNullOrEmpty(queueid))
-            m.args["queue_id"] = queueid;
+            m.Args["queue_id"] = queueid;
 
         return await c.Send<List<Item>?>(m); ;
     }
@@ -172,7 +172,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicTracksTrackAlbum)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "item_id", itemid },
                 {"provider_instance_id_or_domain", providerInstanceIdOrDomain},
@@ -196,7 +196,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicFavouritesAddItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "item", t },
                 }
@@ -208,7 +208,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicFavouritesRemoveItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "media_type", t.MediaType },
                     { "library_item_id", t.ItemId}
@@ -221,7 +221,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MusicGetLibraryItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "media_type", type },
                     { "item_id", itemId},

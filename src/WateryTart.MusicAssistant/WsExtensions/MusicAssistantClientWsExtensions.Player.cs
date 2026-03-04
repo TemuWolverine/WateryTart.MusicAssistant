@@ -53,7 +53,7 @@ public static partial class MusicAssistantClientWsExtensions
 
         var m = new Message(Commands.PlayerQueuePlayMedia)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "media", mediaArray },
@@ -62,7 +62,7 @@ public static partial class MusicAssistantClientWsExtensions
         };
 
         if (radiomode)
-            m.args.Add("radio_mode", true);
+            m.Args.Add("radio_mode", true);
 
         return await SendAsync<PlayersQueuesResponse>(c, m);
     }
@@ -71,7 +71,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerGroupVolume)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "player_id", playerId },
                     { "volume_level", volume },
@@ -116,7 +116,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerQueuesSeek)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "position", position },
@@ -131,7 +131,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerQueuesRepeat)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "repeat_mode", mode },
@@ -147,7 +147,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerQueuesShuffle)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "shuffle_enabled", shuffle_enable },
@@ -162,7 +162,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerQueuesDontStopTheMusic)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "dont_stop_the_music_enabled", dont_stop_the_music_enabled },
@@ -177,7 +177,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.PlayerQueuesClear)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "queue_id", queueId },
                     { "skip_stop", skip_stop },

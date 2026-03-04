@@ -9,7 +9,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.AuthLogin)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "username", username },
                 { "password", password },
@@ -34,14 +34,14 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.AuthTokenCreate)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "name", name },
             }
         };
 
         if (!string.IsNullOrEmpty(userid))
-            m.args.Add("userid", userid);
+            m.Args.Add("userid", userid);
 
         return await c.Send<string?>(m);
     }

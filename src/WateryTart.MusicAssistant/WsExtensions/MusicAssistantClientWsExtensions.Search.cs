@@ -16,18 +16,18 @@ public static partial class MusicAssistantClientWsExtensions
     /// <returns>A <see cref="Search"/> result object, or null if the request fails.</returns>
     public static async Task<SearchResponse> SearchAsync(this MusicAssistantClientWs c, string query, int? limit = null, bool library_only = false)
     {
-        var args = new Dictionary<string, object>()
+        var Args = new Dictionary<string, object>()
         {
             { "search_query", query },
             { "library_only", library_only }
         };
 
         if (limit != null)
-            args.Add("limit", limit);
+            Args.Add("limit", limit);
 
         var m = new Message(Commands.MusicSearch)
         {
-            args = args
+            Args = Args
         };
 
         return await SendAsync<SearchResponse>(c, m);

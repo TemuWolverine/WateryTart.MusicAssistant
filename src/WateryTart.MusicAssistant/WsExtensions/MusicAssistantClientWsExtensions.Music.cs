@@ -17,7 +17,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicAlbumsCount)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "favorite_only", favouriteOnly },
                     { "album_types", "[\"album\", \"single\", \"live\", \"soundtrack\", \"compilation\", \"ep\", \"unknown\"]" }
@@ -70,25 +70,25 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicAlbumLibraryItems)
         {
-            args = new Dictionary<string, object>()
+            Args = []
         };
 
         if (favouriteOnly)
-            m.args["favorite"] = true;
+            m.Args["favorite"] = true;
 
         if (limit.HasValue)
         {
-            m.args["limit"] = limit.Value.ToString();
+            m.Args["limit"] = limit.Value.ToString();
         }
         if (offset.HasValue)
         {
-            m.args["offset"] = offset.Value.ToString();
+            m.Args["offset"] = offset.Value.ToString();
         }
         if (!string.IsNullOrEmpty(order_by))
-            m.args["order_by"] = order_by;
+            m.Args["order_by"] = order_by;
 
         if (string.IsNullOrEmpty(order_by) && order != OrderBy.Unknown)
-            m.args["order_by"] = order;
+            m.Args["order_by"] = order;
 
         return await SendAsync<AlbumsResponse>(c, m);
     }
@@ -149,7 +149,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicPlaylistsLibraryItems)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "favorite_only", favourite },
                 }
@@ -157,19 +157,19 @@ public static partial class MusicAssistantClientWsExtensions
 
         if (limit.HasValue)
         {
-            m.args["limit"] = limit.Value.ToString();
+            m.Args["limit"] = limit.Value.ToString();
         }
         if (offset.HasValue)
         {
-            m.args["offset"] = offset.Value.ToString();
+            m.Args["offset"] = offset.Value.ToString();
         }
         if (!string.IsNullOrEmpty(search))
         {
-            m.args["search"] = search;
+            m.Args["search"] = search;
         }
         if (orderby != OrderBy.Unknown)
         {
-            m.args["order_by"] = orderby;
+            m.Args["order_by"] = orderby;
         }
         return await SendAsync<PlaylistsResponse>(c, m);
     }
@@ -236,7 +236,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicRecentlyPlayedItems)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "limit", limit},
                 {"fully_played_only", fullyPlayedOnly},
@@ -245,9 +245,9 @@ public static partial class MusicAssistantClientWsExtensions
         };
 
         if (!string.IsNullOrEmpty(userid))
-            m.args["user_id"] = userid;
+            m.Args["user_id"] = userid;
         if (!string.IsNullOrEmpty(queueid))
-            m.args["queue_id"] = queueid;
+            m.Args["queue_id"] = queueid;
 
         return await SendAsync<TracksResponse>(c, m); ;
     }
@@ -263,7 +263,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicTracksTrackAlbum)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "item_id", itemid },
                 {"provider_instance_id_or_domain", providerInstanceIdOrDomain},
@@ -297,25 +297,25 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicTracksLibraryItems)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "favorite_only", favourite },
                 }
         };
         if (limit.HasValue)
         {
-            m.args["limit"] = limit.Value.ToString();
+            m.Args["limit"] = limit.Value.ToString();
         }
         if (offset.HasValue)
         {
-            m.args["offset"] = offset.Value.ToString();
+            m.Args["offset"] = offset.Value.ToString();
         }
 
         if (!string.IsNullOrEmpty(search))
-            m.args.Add("search", search);
+            m.Args.Add("search", search);
 
         if (order != OrderBy.Unknown)
-            m.args.Add("order_by", order);
+            m.Args.Add("order_by", order);
 
         return await SendAsync<TracksResponse>(c, m);
     }
@@ -329,7 +329,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicFavouritesAddItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "item", t },
                 }
@@ -346,7 +346,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicFavouritesRemoveItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "media_type", t.MediaType },
                     { "library_item_id", t.ItemId}
@@ -366,7 +366,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicGetLibraryItem)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "media_type", type },
                     { "item_id", itemId},

@@ -12,7 +12,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.MetadataGetTrackLyrics)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "track", track }
                 }

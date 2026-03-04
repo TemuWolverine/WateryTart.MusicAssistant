@@ -9,12 +9,12 @@ public static partial class MusicAssistantClientWsExtensions
 
     private static Action<string> Deserialise<T>(Action<T> responseHandler)
     {
-        Action<string> d = (r) =>
+        void d(string r)
         {
             var y = JsonSerializer.Deserialize<T>(r, MusicAssistantClient.SerializerOptions);
             if (y != null)
                 responseHandler(y);
-        };
+        }
 
         return d;
     }
@@ -27,8 +27,7 @@ public static partial class MusicAssistantClientWsExtensions
             {
                 try
                 {
-                    var typeInfo = MusicAssistantJsonContext.Default.GetTypeInfo(typeof(T)) as JsonTypeInfo<T>;
-                    if (typeInfo == null)
+                    if (MusicAssistantJsonContext.Default.GetTypeInfo(typeof(T)) is not JsonTypeInfo<T> typeInfo)
                         return;
 
                     var result = JsonSerializer.Deserialize(response, typeInfo);

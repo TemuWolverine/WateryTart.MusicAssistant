@@ -34,8 +34,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
             foreach (var methodDecl in methodDecls)
             {
                 var model = compilation.GetSemanticModel(methodDecl.SyntaxTree);
-                var methodSymbol = model.GetDeclaredSymbol(methodDecl) as IMethodSymbol;
-                if (methodSymbol == null)
+                if (model.GetDeclaredSymbol(methodDecl) is not IMethodSymbol methodSymbol)
                     continue;
 
                 // Only process methods explicitly marked with [ToRpc]
@@ -216,7 +215,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 // ensure async keyword present
                 var modifiers = methodDecl.Modifiers.ToFullString().Trim();
                 if (!modifiers.Contains("async"))
-                    modifiers = modifiers + (modifiers.Length > 0 ? " async" : "async");
+                    modifiers += (modifiers.Length > 0 ? " async" : "async");
 
                 var methodName = methodDecl.Identifier.Text;
                 var typeParams = methodDecl.TypeParameterList?.ToFullString() ?? "";
@@ -244,7 +243,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 // Add XML documentation if present
                 if (!string.IsNullOrWhiteSpace(xmlDocText))
                 {
-                    foreach (var line in xmlDocText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                    foreach (var line in xmlDocText.Split([ '\r', '\n' ], StringSplitOptions.RemoveEmptyEntries))
                     {
                         if (!string.IsNullOrWhiteSpace(line))
                             methodSb.AppendLine("        " + line.TrimEnd());
@@ -253,7 +252,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
 
                 methodSb.AppendLine($"        {modifiers} {generatedReturn} {methodName}{typeParams}{paramListText}");
                 methodSb.AppendLine("        {");
-                foreach (var line in newBodyText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var line in newBodyText.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
                 {
                     methodSb.AppendLine("            " + line.TrimEnd());
                 }
@@ -267,7 +266,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
                 // store method text under rpcClassName
                 if (!methodsByClass.TryGetValue(rpcClassName, out var list))
                 {
-                    list = new List<string>();
+                    list = [];
                     methodsByClass[rpcClassName] = list;
                 }
                 list.Add(methodBlock);
@@ -345,7 +344,7 @@ public class WsToRpcSourceGenerator : IIncrementalGenerator
 
     private static void AppendDocLines(StringBuilder sb, string docText)
     {
-        var lines = docText.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+        var lines = docText.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
         foreach (var line in lines)
         {
             if (!string.IsNullOrWhiteSpace(line))

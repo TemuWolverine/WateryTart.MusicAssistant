@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace WateryTart.MusicAssistant.Converters;
 
@@ -7,8 +8,11 @@ namespace WateryTart.MusicAssistant.Converters;
 /// Generic enum converter that falls back to the first enum value (typically "Unknown")
 /// when encountering unrecognized strings. Works with snake_case naming.
 /// </summary>
-public class FallbackEnumConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
+public partial class FallbackEnumConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
 {
+    [GeneratedRegex("([a-z])([A-Z])")]
+    private static partial Regex PascalCaseToSnakeCaseRegex();
+
     public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType == JsonTokenType.String)
@@ -60,7 +64,7 @@ public class FallbackEnumConverter<TEnum> : JsonConverter<TEnum> where TEnum : s
             if (parts[i].Length > 0)
             {
                 parts[i] = char.ToUpper(parts[i][0]) + 
-                          (parts[i].Length > 1 ? parts[i].Substring(1).ToLower() : "");
+                          (parts[i].Length > 1 ? parts[i][1..].ToLower() : "");
             }
         }
         return string.Join("", parts);
@@ -71,8 +75,8 @@ public class FallbackEnumConverter<TEnum> : JsonConverter<TEnum> where TEnum : s
         if (string.IsNullOrEmpty(pascalCase))
             return pascalCase;
         
-        return System.Text.RegularExpressions.Regex
-            .Replace(pascalCase, "([a-z])([A-Z])", "$1_$2")
+        return PascalCaseToSnakeCaseRegex()
+            .Replace(pascalCase, "$1_$2")
             .ToLower();
     }
 }

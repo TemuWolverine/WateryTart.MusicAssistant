@@ -1,12 +1,13 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WateryTart.MusicAssistant.Messages;
 
 public abstract class MessageBase(string command)
 {
-    public Dictionary<string, object>? args { get; set; }
-    public string message_id { get; set; } = Guid.NewGuid().ToString();
-    public string command { get; set; } = command;
+    [JsonPropertyName("args")] public Dictionary<string, object>? Args { get; set; }
+    [JsonPropertyName("message_id")] public string MessageId { get; set; } = Guid.NewGuid().ToString();
+    [JsonPropertyName("command")] public string Command { get; set; } = command;
 
     public string ToJson()
     {

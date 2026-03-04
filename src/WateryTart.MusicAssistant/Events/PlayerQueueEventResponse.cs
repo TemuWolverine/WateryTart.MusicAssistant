@@ -6,5 +6,5 @@ namespace WateryTart.MusicAssistant.Events;
 public class PlayerQueueEventResponse : BaseEventResponse
 {
     [JsonPropertyName("data")]
-    public new PlayerQueue? data { get; set; }
+    public new PlayerQueue? Data { get; set; }
 }

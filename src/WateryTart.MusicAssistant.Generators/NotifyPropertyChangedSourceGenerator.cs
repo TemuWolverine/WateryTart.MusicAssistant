@@ -32,8 +32,7 @@ public class NotifyPropertyChangedSourceGenerator : IIncrementalGenerator
             foreach (var classDecl in classDecls)
             {
                 var model = compilation.GetSemanticModel(classDecl.SyntaxTree);
-                var classSymbol = model.GetDeclaredSymbol(classDecl) as INamedTypeSymbol;
-                if (classSymbol == null)
+                if (model.GetDeclaredSymbol(classDecl) is not INamedTypeSymbol classSymbol)
                     continue;
 
                 if (!classSymbol.GetAttributes().Any(ad =>

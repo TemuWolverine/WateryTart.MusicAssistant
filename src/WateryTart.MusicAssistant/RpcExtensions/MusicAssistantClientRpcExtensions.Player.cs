@@ -66,13 +66,13 @@ public static partial class MusicAssistantClientRpcExtensions
 
         var m = new Message(Commands.PlayerQueuePlayMedia)
         {
-            args =
+            Args =
                 new Dictionary<string, object>()
                 { { "queue_id", queueId }, { "media", mediaArray }, { "option", modestr } }
         };
 
         if (radiomode)
-            m.args.Add("radio_mode", true);
+            m.Args.Add("radio_mode", true);
 
         return await c.Send<List<PlayerQueue>>(m);
     }
@@ -131,7 +131,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.PlayerQueuesSeek)
         {
-            args = new Dictionary<string, object>() { { "queue_id", queueId }, { "position", position }, }
+            Args = new Dictionary<string, object>() { { "queue_id", queueId }, { "position", position }, }
         };
 
         return c.Send(m);
@@ -144,7 +144,7 @@ public static partial class MusicAssistantClientRpcExtensions
     {
         var m = new Message(Commands.PlayerGroupVolume)
         {
-            args = new Dictionary<string, object>() { { "player_id", playerId }, { "volume_level", volume }, }
+            Args = new Dictionary<string, object>() { { "player_id", playerId }, { "volume_level", volume }, }
         };
 
         return await c.Send<List<PlayerQueue>>(m);

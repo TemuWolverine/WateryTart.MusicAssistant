@@ -47,8 +47,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
             var includedTypes = new List<string>();
             if (contextClass?.DeclaringSyntaxReferences.Length > 0)
             {
-                var syntax = contextClass.DeclaringSyntaxReferences[0].GetSyntax() as ClassDeclarationSyntax;
-                if (syntax != null)
+                if (contextClass.DeclaringSyntaxReferences[0].GetSyntax() is ClassDeclarationSyntax syntax)
                 {
                     var includeAttrs = syntax.AttributeLists
                         .SelectMany(al => al.Attributes)
@@ -92,8 +91,7 @@ public class JsonContextSourceGenerator : IIncrementalGenerator
             !symbol.IsAbstract)
         {
             var fullNamespace = symbol.ContainingNamespace.ToDisplayString();
-            var qualifiedName = symbol.ToDisplayString();
-
+           
             // Exclude open generic type definitions (e.g., ResponseBase<T>)
             // But include concrete types even if they inherit from generics (e.g., TempResponse : ResponseBase<object>)
             if (symbol.IsGenericType && symbol.TypeParameters.Any())

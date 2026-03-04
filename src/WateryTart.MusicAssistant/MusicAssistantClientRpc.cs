@@ -3,23 +3,16 @@ using WateryTart.MusicAssistant.Messages;
 
 namespace WateryTart.MusicAssistant;
 
-public class MusicAssistantClientRpc
+public class MusicAssistantClientRpc(MusicAssistantClient parentClient, string baseurl)
 {
-    internal readonly MusicAssistantClient parent;
-    private string _baseurl;
-    private HttpClient client;
+    internal readonly MusicAssistantClient parent = parentClient;
+    private string _baseurl = baseurl;
+    private readonly HttpClient client = new();
     private string? _token;
     internal void SetToken(string token)
     {
         _token = token;
         client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-    }
-
-    public MusicAssistantClientRpc(MusicAssistantClient parentClient, string baseurl)
-    {
-        parent = parentClient;
-        _baseurl = baseurl;
-        client = new HttpClient();
     }
 
     internal void SetUrl(string url)
@@ -36,8 +29,10 @@ public class MusicAssistantClientRpc
     public async Task<T?> Send<T>(MessageBase message)
     {
         //Build request
-        var request = new HttpRequestMessage(HttpMethod.Post, _baseurl);
-        request.Content = new StringContent(message.ToJson());
+        var request = new HttpRequestMessage(HttpMethod.Post, _baseurl)
+        {
+            Content = new StringContent(message.ToJson())
+        };
 
         //Send request
         var response = await client.SendAsync(request);
@@ -52,13 +47,15 @@ public class MusicAssistantClientRpc
     public async Task Send(MessageBase message)
     {
         //Build request
-        var request = new HttpRequestMessage(HttpMethod.Post, _baseurl);
-        request.Content = new StringContent(message.ToJson());
+        var request = new HttpRequestMessage(HttpMethod.Post, _baseurl)
+        {
+            Content = new StringContent(message.ToJson())
+        };
 
         //Send request
         var response = await client.SendAsync(request);
 
         //Convert response to T 
-        var responseBody = await response.Content.ReadAsStringAsync();
+        _ = await response.Content.ReadAsStringAsync();
     }
 }

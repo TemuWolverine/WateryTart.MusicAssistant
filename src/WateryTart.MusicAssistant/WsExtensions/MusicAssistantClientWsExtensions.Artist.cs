@@ -33,30 +33,30 @@ public static partial class MusicAssistantClientWsExtensions
 
     public static async Task<ArtistsResponse> GetArtistsAsync(this MusicAssistantClientWs c, bool favourite = false, string? search = null, int? limit = null, int? offset = null, string? order_by = null, bool album_artists_only = false, OrderBy order = OrderBy.Unknown)
     {
-        var args = new Dictionary<string, object>()
+        var Args = new Dictionary<string, object>()
         {
             { "favorite", favourite },
             { "album_artists_only", album_artists_only }
         };
 
         if (!string.IsNullOrEmpty(search))
-            args.Add("search", search);
+            Args.Add("search", search);
 
         if (!string.IsNullOrEmpty(order_by))
-            args.Add("order_by", order_by);
+            Args.Add("order_by", order_by);
 
         if (string.IsNullOrEmpty(order_by) && order != OrderBy.Unknown)
-            args.Add("order_by", order);
+            Args.Add("order_by", order);
 
         if (limit != null)
-            args.Add("limit", limit);
+            Args.Add("limit", limit);
 
         if (offset != null)
-            args.Add("offset", offset);
+            Args.Add("offset", offset);
 
         var m = new Message(Commands.MusicArtistsGet)
         {
-            args = args
+            Args = Args
         };
 
         return await SendAsync<ArtistsResponse>(c, m);
@@ -74,7 +74,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicArtistAlbums)
         {
-            args = new Dictionary<string, object>
+            Args = new Dictionary<string, object>
             {
                 { "item_id", artistId },
                 { "provider_instance_id_or_domain", providerInstanceIdOrDomain },
@@ -96,7 +96,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MusicArtistsCount)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
             {
                 { "favorite_only", favourite_only },
                 { "album_artists_only", album_artists_only }

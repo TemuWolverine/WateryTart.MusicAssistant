@@ -42,7 +42,7 @@ public class MusicAssistantClient
         _wsConnection?.SetToken(token);
     }
 
-    private string GetJustHost(string urlOrHost)
+    private static string GetJustHost(string urlOrHost)
     {
         if (Uri.TryCreate(urlOrHost, UriKind.Absolute, out var uri))
         {

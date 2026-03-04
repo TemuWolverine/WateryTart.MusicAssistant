@@ -11,7 +11,7 @@ public static partial class MusicAssistantClientWsExtensions
     {
         var m = new Message(Commands.MetadataGetTrackLyrics)
         {
-            args = new Dictionary<string, object>()
+            Args = new Dictionary<string, object>()
                 {
                     { "track", track }
                 }

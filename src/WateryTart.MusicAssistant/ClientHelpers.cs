@@ -13,7 +13,7 @@ public static class ClientHelpers
     {
         var m = new Message(command)
         {
-            args = new Dictionary<string, object>
+            Args = new Dictionary<string, object>
             {
                 { idLabel, id },
             }
@@ -26,7 +26,7 @@ public static class ClientHelpers
     {
         var m = new Message(command)
         {
-            args = new Dictionary<string, object>
+            Args = new Dictionary<string, object>
             {
                 { "item_id", id },
                 { "provider_instance_id_or_domain", provider }

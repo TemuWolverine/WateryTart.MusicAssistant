@@ -1,8 +1,5 @@
 ﻿namespace WateryTart.MusicAssistant.Messages;
 
-public class Message : MessageBase
+public class Message(string _command) : MessageBase(_command)
 {
-    public Message(string _command) : base(_command)
-    {
-    }
 }

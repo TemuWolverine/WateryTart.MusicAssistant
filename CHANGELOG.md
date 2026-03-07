@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.2.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.1.0...v4.2.0) (2026-03-04)
+
+
+### Features
+
+* "order_by" enum, will eventually be rolled out to all methods that use ordering. ([0331a99](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/0331a99ddf48f272621e466adeda22005aded84d))
+* order_by and search on GetPlaylistsAsync, GetMusicAlbumsLibraryItemsAsync, GetTracksAsync ([b68fe57](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/b68fe57b7da7526d1804a415ba69ea282d9596a6))
+
+
+### Bug Fixes
+
+* #nullable wrapping in code generation ([16a26f3](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/16a26f33476fd1ca3ce4651a2ac18c87cd3405ad))
+* favourite-only now toggleable ([49a6af9](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/49a6af9f07fd75736721bde034c40da4a8b4ee11))
+* OrderBy enum now gains descriptions ([29a94de](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/29a94de2fc5385dadaed14ba873234a902490f55))
+* used vibe coding to copy across xmldoc into generated methods. Added some xmldoc ([eba9c53](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/eba9c53498627825187035b841dc8cfa2c944ac7))
+* Ws and Rpc Artist methods now in sync ([7241beb](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/7241bebdf9ab4775b772fa45723c97bb478e5be6))
+
 ## [4.1.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.0.1...v4.1.0) (2026-02-26)
 
 

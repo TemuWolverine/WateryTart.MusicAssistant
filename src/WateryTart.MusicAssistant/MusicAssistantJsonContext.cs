@@ -85,6 +85,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(LoginResults))]
 [JsonSerializable(typeof(MusicAssistantCredentials))]
 [JsonSerializable(typeof(User))]
+[JsonSerializable(typeof(Genre))]
 [JsonSerializable(typeof(EventType))]
 [JsonSerializable(typeof(OrderBy))]
 [JsonSerializable(typeof(RepeatMode))]
@@ -114,6 +115,9 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<Item>))]
 [JsonSerializable(typeof(ResponseBase<MediaItemBase>))]
 [JsonSerializable(typeof(ItemResponse))]
+[JsonSerializable(typeof(GenresResponse))]
+[JsonSerializable(typeof(GenreResponse))]
+
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Album>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Artist>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Item>>))]
@@ -122,6 +126,8 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Playlist>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<QueuedItem>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Recommendation>>))]
+[JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Genre>>))]
+
 [JsonSerializable(typeof(ResponseBase<Album>))]
 [JsonSerializable(typeof(ResponseBase<Artist>))]
 [JsonSerializable(typeof(ResponseBase<AuthUser>))]

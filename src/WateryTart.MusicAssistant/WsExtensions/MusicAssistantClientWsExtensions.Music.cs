@@ -42,7 +42,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <returns>A <see cref="CountResponse"/> containing the genre count.</returns>
     public static async Task<CountResponse> GetGenreCountAsync(this MusicAssistantClientWs c)
     {
-        return await SendAsync<CountResponse>(c, ClientHelpers.JustId("music/genre/count", "false", "favorite_only"));
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.GenresCount, "false", "favorite_only"));
     }
 
     /// <summary>

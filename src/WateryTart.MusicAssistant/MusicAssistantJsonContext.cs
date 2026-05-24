@@ -128,6 +128,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Recommendation>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Genre>>))]
 
+[JsonSerializable(typeof(ResponseBase<StringArrayResponse>))]
 [JsonSerializable(typeof(ResponseBase<Album>))]
 [JsonSerializable(typeof(ResponseBase<Artist>))]
 [JsonSerializable(typeof(ResponseBase<AuthUser>))]

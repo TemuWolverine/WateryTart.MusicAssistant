@@ -16,4 +16,7 @@ public class Image
     
     [JsonPropertyName("remotely_accessible")]
     public bool RemotelyAccessible { get; set; }
+
+    [JsonPropertyName("proxy_id")]
+    public string ProxyId { get; set; }
 }

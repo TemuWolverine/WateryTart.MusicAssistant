@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.3.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.2.0...v4.3.0) (2026-07-27)
+
+
+### Features
+
+* fetching lyrics ([6f90fab](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/6f90fab8129a8e71c54ca465270f69b6e2f0683a))
+* **genre:** expanded genre API coverage ([4cb4659](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/4cb46590bea2eb2a65921fbd7a7265bf63d9ba14))
+* stubbed out some genre api calls ([2ba09de](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/2ba09de6f64fb6ce97f9f3a1b66a6ac18bb0352a))
+
+
+### Bug Fixes
+
+* added new proxy_id field to images ([9fc0d54](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/9fc0d545022d255c2974e78b2f2597335aaa17ee))
+* API changed with MA 2.8 ([bfaa5c0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/bfaa5c020aa0ae840fd64ae55286442708c316f2))
+
 ## [4.2.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.1.0...v4.2.0) (2026-03-04)
 
 

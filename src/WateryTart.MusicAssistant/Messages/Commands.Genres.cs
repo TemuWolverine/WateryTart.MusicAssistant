@@ -22,6 +22,7 @@ public static partial class Commands
     public const string GenreExclusionsForMediaItem = "music/genres/exclusions_for_media_item";
     public const string GenresForMediaItem = "music/genres/for_media_item";
     public const string GenresGet = "music/genres/get";
+    public const string GenresGetOverview = "music/genres/overview"; 
     public const string GenresGlobalExclusions = "music/genres/global_exclusions";
     public const string GenresLibraryItems = "music/genres/library_items";
     public const string GenresMediaCounts = "music/genres/media_counts";

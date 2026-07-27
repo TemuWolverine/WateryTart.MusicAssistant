@@ -117,6 +117,9 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ItemResponse))]
 [JsonSerializable(typeof(GenresResponse))]
 [JsonSerializable(typeof(GenreResponse))]
+[JsonSerializable(typeof(GenreOverview))]
+[JsonSerializable(typeof(GenreOverviewResponse))]
+
 
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Album>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Artist>>))]
